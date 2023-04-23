@@ -11,6 +11,10 @@ cards = [
         type: 'Apartment',
         rating: 4,
         premium: true,
+        location: {
+            latitude: 52.3909553943508,
+            longitude: 4.85309666406198,
+        },
     },
     {
         id: 2,
@@ -20,6 +24,10 @@ cards = [
         type: 'Private room',
         rating: 4,
         active: true,
+        location: {
+            latitude: 52.369553943508,
+            longitude: 4.85309666406198,
+        },
     },
     {
         id: 3,
@@ -28,6 +36,10 @@ cards = [
         price: 132,
         type: 'Apartment',
         rating: 4,
+        location: {
+            latitude: 52.3909553943508,
+            longitude: 4.929309666406198,
+        },
     },
     {
         id: 4,
@@ -37,6 +49,10 @@ cards = [
         type: 'Apartment',
         rating: 5,
         premium: true,
+        location: {
+            latitude: 52.3809553943508,
+            longitude: 4.939309666406198,
+        },
     },
     {
         id: 5,
@@ -46,6 +62,10 @@ cards = [
         type: 'Apartment',
         rating: 4,
         active: true,
+        location: {
+            latitude: 52.3909553943508,
+            longitude: 4.939309666406198,
+        },
     },
 ];
 

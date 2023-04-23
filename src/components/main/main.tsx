@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
+import { useState, useEffect } from 'react';
 import { CardProps } from '../../types/types';
 import CardList from '../card-list/card-list';
 import Logo from '../logo/logo';
+import Map from '../map/map';
 
 type MainProps = {
     cards: CardProps[];
 }
 
-function Main({cards}: MainProps): JSX.Element {
-    const changeHoveredCard = (id: number): void => {
-        console.log('id', id);
-    };
+function Main({ cards }: MainProps): JSX.Element {
+    const [activeCardId, setActiveCardId] = useState<number | undefined>(undefined);
 
     return (
         <div className="page page--gray page--main">
@@ -107,10 +107,12 @@ function Main({cards}: MainProps): JSX.Element {
                                     </li>
                                 </ul>
                             </form>
-                            <CardList cards={cards} changeHover={() => changeHoveredCard} />
+                            <CardList cards={cards} onSetActiveCard={setActiveCardId} />
                         </section>
                         <div className="cities__right-section">
-                            <section className="cities__map map"></section>
+                            <section className="cities__map map">
+                                <Map cards={cards} activeCardId={activeCardId} />
+                            </section>
                         </div>
                     </div>
                 </div>

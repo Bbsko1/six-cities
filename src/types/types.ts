@@ -1,3 +1,8 @@
+type Location = {
+    latitude: number;
+    longitude: number;
+}
+
 export type CardProps = {
     id: number;
     name: string;
@@ -7,4 +12,14 @@ export type CardProps = {
     rating: number;
     active?: boolean;
     premium?: boolean;
+    location: Location;
 }
+
+/* export type Point = {
+    id: number;
+    name: string;
+    latitude: number;
+    longitude: number;
+}
+
+export type Points = Point[]; */

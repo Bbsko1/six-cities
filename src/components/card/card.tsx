@@ -3,14 +3,14 @@ import { CardProps } from '../../types/types';
 
 type Props = {
     card: CardProps;
-    changeHover: () => void;
+    mouseEnter: () => void;
 }
 
-function Card({ card, changeHover }: Props): JSX.Element {
+function Card({ card, mouseEnter }: Props): JSX.Element {
     const ratingScore = `${card.rating * 20}%`;
 
     return (
-        <article className="cities__place-card place-card" onMouseEnter={changeHover}>
+        <article className="cities__place-card place-card" onMouseEnter={mouseEnter}>
             {card.premium &&
                 <div className="place-card__mark">
                     <span>Premium</span>
