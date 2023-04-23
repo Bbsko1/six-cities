@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { CardProps } from '../../types/types';
 import CardList from '../card-list/card-list';
 import Logo from '../logo/logo';
@@ -7,6 +8,10 @@ type MainProps = {
 }
 
 function Main({cards}: MainProps): JSX.Element {
+    const changeHoveredCard = (id: number): void => {
+        console.log('id', id);
+    };
+
     return (
         <div className="page page--gray page--main">
             <header className="header">
@@ -102,7 +107,7 @@ function Main({cards}: MainProps): JSX.Element {
                                     </li>
                                 </ul>
                             </form>
-                            <CardList cards={cards} />
+                            <CardList cards={cards} changeHover={() => changeHoveredCard} />
                         </section>
                         <div className="cities__right-section">
                             <section className="cities__map map"></section>
