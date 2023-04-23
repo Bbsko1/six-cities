@@ -1,6 +1,6 @@
-import { CardProps } from "../../types/types";
+import { CardProps } from '../../types/types';
 import CardList from '../card-list/card-list';
-import Logo from "../logo/logo";
+import Logo from '../logo/logo';
 
 type MainProps = {
     cards: CardProps[];
@@ -13,7 +13,7 @@ function Main({cards}: MainProps): JSX.Element {
                 <div className="container">
                     <div className="header__wrapper">
                         <div className="header__left">
-                            <Logo isActive={true} />
+                            <Logo isActive />
                         </div>
                         <nav className="header__nav">
                             <ul className="header__nav-list">

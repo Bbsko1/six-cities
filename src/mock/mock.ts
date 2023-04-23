@@ -1,4 +1,4 @@
-import { CardProps } from "../types/types";
+import { CardProps } from '../types/types';
 
 let cards: CardProps[] = [];
 

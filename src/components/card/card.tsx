@@ -1,19 +1,24 @@
-import { CardProps } from "../../types/types";
+import { Link } from 'react-router-dom';
+import { CardProps } from '../../types/types';
 
 type Props = {
     card: CardProps;
+    changeHover: () => void;
 }
 
-function Card({card}: Props): JSX.Element {
+function Card({ card, changeHover }: Props): JSX.Element {
     const ratingScore = `${card.rating * 20}%`;
 
     return (
-        <article className="cities__place-card place-card">
-            {card.premium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
+        <article className="cities__place-card place-card" onMouseEnter={changeHover}>
+            {card.premium &&
+                <div className="place-card__mark">
+                    <span>Premium</span>
+                </div>}
             <div className="cities__image-wrapper place-card__image-wrapper">
-                <a href="#">
+                <Link to={`offer/${card.id}`}>
                     <img className="place-card__image" src={card.imgSrc} width="260" height="200" alt="Place" />
-                </a>
+                </Link>
             </div>
             <div className="place-card__info">
                 <div className="place-card__price-wrapper">
@@ -35,7 +40,7 @@ function Card({card}: Props): JSX.Element {
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <a href="#">{card.name}</a>
+                    <Link to={`offer/${card.id}`}>{card.name}</Link>
                 </h2>
                 <p className="place-card__type">{card.type}</p>
             </div>
