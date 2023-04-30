@@ -74,7 +74,7 @@ function Main(): JSX.Element {
 
                 <div className="cities">
                     <div className="cities__places-container container">
-                        <section className="cities__places places">
+                        <section className="cities__places places g-custom-scroll">
                             <h2 className="visually-hidden">Places</h2>
                             <b className="places__found">{curCards.length} places to stay in {activeCity}</b>
                             <SortingList />
