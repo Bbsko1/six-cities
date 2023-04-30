@@ -6,7 +6,8 @@ function useMap(
     center: {
         lat: number,
         lng: number
-    }
+    },
+    zoom: number
 ): Map | null {
     const [map, setMap] = useState<Map | null>(null);
 
@@ -17,7 +18,7 @@ function useMap(
                     lat: center.lat,
                     lng: center.lng
                 },
-                zoom: 10
+                zoom: zoom
             });
 
             const layer = new TileLayer(

@@ -7,18 +7,13 @@ import Header from '../header/header';
 import { AppRoutes, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import NotFound from '../404/404';
-import { CardProps } from '../../types/types';
 
-type AppProps = {
-    cards: CardProps[];
-}
 
-function App({cards}: AppProps): JSX.Element {
+function App(): JSX.Element {
     return (
         <BrowserRouter>
-            <Header />
             <Routes>
-                <Route path={AppRoutes.Main} element={<Main cards={cards} />} />
+                <Route path={AppRoutes.Main} element={<Main />} />
                 <Route path={AppRoutes.Login} element={<Login />} />
                 <Route path={AppRoutes.Favorites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><Favorites /></PrivateRoute>} />
                 <Route path={AppRoutes.Room} element={<Property />} />

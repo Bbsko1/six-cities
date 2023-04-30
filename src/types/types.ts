@@ -1,25 +1,40 @@
+import { SortNames } from "../const";
+
 type Location = {
     latitude: number;
     longitude: number;
+    zoom: number;
 }
 
 export type CardProps = {
     id: number;
-    name: string;
-    imgSrc: string;
+    title: string;
+    previewImage: string;
     type: string;
     price: number;
     rating: number;
-    active?: boolean;
-    premium?: boolean;
+    active?: boolean; /* Не приходит */
+    isPremium: boolean;
+    isFavorite: boolean;
+    location: Location;
+    city: CityProps;
+    description: string;
+    goods: string[];
+    images: string[];
+    maxAdults: number;
+    bedrooms: number;
+}
+
+export type CityProps = {
+    name: string;
     location: Location;
 }
 
-/* export type Point = {
-    id: number;
-    name: string;
-    latitude: number;
-    longitude: number;
+export type CardsState = {
+    cities: CityProps[] | [];
+    activeCity: null | string;
+    cards: CardProps[] | [];
+    loading: boolean,
+    error: null | string,
+    sortType: SortNames,
 }
-
-export type Points = Point[]; */

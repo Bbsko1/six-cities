@@ -1,13 +1,14 @@
 import { useParams, Navigate } from 'react-router-dom';
 import Logo from '../logo/logo';
-import cards from '../../mock/mock';
 import { CardProps } from '../../types/types';
 import { AppRoutes } from '../../const';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 function Property() {
     const { id } = useParams();
+    const {cards} = useTypedSelector(state => state.CARDS);
 
-    const currentCard: CardProps | undefined = cards.filter((card) => card.id === Number(id)).pop();
+    const currentCard: CardProps | undefined = cards.find((card) => card.id === Number(id));
 
     return (
         <div>
@@ -44,7 +45,7 @@ function Property() {
                             <div className="property__gallery-container container">
                                 <div className="property__gallery">
                                     <div className="property__image-wrapper">
-                                        <img className="property__image" src={currentCard.imgSrc} alt="Studio" />
+                                        <img className="property__image" src={currentCard.previewImage} alt="Studio" />
                                     </div>
                                     <div className="property__image-wrapper">
                                         <img className="property__image" src="img/apartment-01.jpg" alt="Studio" />
@@ -65,13 +66,13 @@ function Property() {
                             </div>
                             <div className="property__container container">
                                 <div className="property__wrapper">
-                                    {currentCard.premium &&
+                                    {currentCard.isPremium &&
                                         <div className="property__mark">
                                             <span>Premium</span>
                                         </div>}
                                     <div className="property__name-wrapper">
                                         <h1 className="property__name">
-                                            {currentCard.name}
+                                            {currentCard.title}
                                         </h1>
                                         <button className="property__bookmark-button button" type="button">
                                             <svg className="property__bookmark-icon" width="31" height="33">

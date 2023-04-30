@@ -11,13 +11,13 @@ function Card({ card, mouseEnter }: Props): JSX.Element {
 
     return (
         <article className="cities__place-card place-card" onMouseEnter={mouseEnter}>
-            {card.premium &&
+            {card.isPremium &&
                 <div className="place-card__mark">
                     <span>Premium</span>
                 </div>}
             <div className="cities__image-wrapper place-card__image-wrapper">
                 <Link to={`offer/${card.id}`}>
-                    <img className="place-card__image" src={card.imgSrc} width="260" height="200" alt="Place" />
+                    <img className="place-card__image" src={card.previewImage} width="260" height="200" alt="Place" />
                 </Link>
             </div>
             <div className="place-card__info">
@@ -40,7 +40,7 @@ function Card({ card, mouseEnter }: Props): JSX.Element {
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <Link to={`offer/${card.id}`}>{card.name}</Link>
+                    <Link to={`offer/${card.id}`}>{card.title}</Link>
                 </h2>
                 <p className="place-card__type">{card.type}</p>
             </div>

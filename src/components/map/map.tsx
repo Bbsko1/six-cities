@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Icon, Marker } from 'leaflet';
-import { CardProps } from '../../types/types';
+import { CardProps, CityProps } from '../../types/types';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
@@ -8,6 +8,7 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
     cards: CardProps[],
     activeCardId: number | undefined,
+    activeCity: CityProps,
 }
 
 const defaultCustomIcon = new Icon({
@@ -23,9 +24,9 @@ const currentCustomIcon = new Icon({
 });
 
 
-function Map({ cards, activeCardId }: MapProps): JSX.Element {
+function Map({ cards, activeCardId, activeCity }: MapProps): JSX.Element {
     const mapRef = useRef(null);
-    const map = useMap(mapRef, { lat: cards[0].location.latitude, lng: cards[0].location.longitude });
+    const map = useMap(mapRef, { lat: activeCity.location.latitude, lng: activeCity.location.longitude }, activeCity.location.zoom);
 
     useEffect(() => {
         const markers: Marker[] = [];
@@ -51,9 +52,7 @@ function Map({ cards, activeCardId }: MapProps): JSX.Element {
                 markers.forEach((marker) => marker.removeFrom(map));
             };
         }
-    }, [cards, activeCardId, map]);
-
-    console.log('cards', cards);
+    }, [cards, activeCardId, activeCity, map]);
 
     return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }
