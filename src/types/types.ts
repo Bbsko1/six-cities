@@ -23,6 +23,12 @@ export type CardProps = {
     images: string[];
     maxAdults: number;
     bedrooms: number;
+    host: {
+        avatarUrl: string,
+        id: number,
+        isPro: boolean,
+        name: string,
+    }
 }
 
 export type CityProps = {
