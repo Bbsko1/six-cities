@@ -17,12 +17,7 @@ function Main(): JSX.Element {
     const [activeCardId, setActiveCardId] = useState<number | undefined>(undefined);
     const state = useTypedSelector(state => state.CARDS);
     const {activeCity, cards, cities, error, loading, sortType} = state;
-    const dispatch = useDispatch();
     const activeCityObj = cities.find(city => city.name === activeCity);
-
-    useEffect(() => {
-        dispatch(fetchCards());
-    }, [])
 
     if (error) {
         return <div>{error}</div>;
