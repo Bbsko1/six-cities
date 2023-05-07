@@ -1,4 +1,4 @@
-import { SortNames } from "../const";
+import { AuthorizationStatus, SortNames } from "../const";
 
 type Location = {
     latitude: number;
@@ -43,4 +43,20 @@ export type CardsState = {
     loading: boolean,
     error: null | string,
     sortType: SortNames,
+    authStatus: AuthorizationStatus,
+    userData: UserData | null,
+}
+
+export type AuthData = {
+    email: string,
+    password: string,
+}
+
+export type UserData = {
+    id: number,
+    email: string,
+    name: string,
+    avatarUrl: string,
+    isPro: boolean,
+    token: string,
 }

@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { fetchCards } from './store/actions/location-actions';
+import { checkAuth, fetchCards, loginAction } from './store/actions/card-actions';
+import { ThunkAppDispatch } from './types/card-actions';
 
-console.log('store', store);
-store.dispatch(fetchCards());
+(store.dispatch as ThunkAppDispatch)(fetchCards());
+(store.dispatch as ThunkAppDispatch)(checkAuth());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

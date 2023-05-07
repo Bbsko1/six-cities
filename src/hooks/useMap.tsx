@@ -13,6 +13,7 @@ function useMap(
 
     useEffect(() => {
         if (mapRef.current !== null && map === null) {
+
             const instance = new Map(mapRef.current, {
                 center: {
                     lat: center.lat,
@@ -33,14 +34,15 @@ function useMap(
 
             setMap(instance);
         }
-    }, [mapRef, map, center]);
+    }, [mapRef, map, /* center */]);
 
     useEffect(() => {
         if (map !== null) {
-            map.panTo({
+            map.flyTo({
                 lat: center.lat,
                 lng: center.lng,
-            });
+            }, 
+            zoom);
         }
     }, [map, center]);
 

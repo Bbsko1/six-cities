@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { CityProps } from "../../types/types";
-import { changeActiveCity } from "../../store/actions/location-actions";
+import { changeActiveCity } from "../../store/actions/card-actions";
 
 type CityItemProps = {
     city: CityProps,

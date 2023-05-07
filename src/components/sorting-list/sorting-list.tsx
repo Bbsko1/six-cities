@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SortNames, sortingList } from "../../const";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
-import { changeSorting } from "../../store/actions/location-actions";
+import { changeSorting } from "../../store/actions/card-actions";
 import SortingItem from "../sorting-item/sorting-item";
 
 function SortingList() {
