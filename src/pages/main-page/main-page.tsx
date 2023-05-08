@@ -7,23 +7,20 @@ import CityList from '../../components/city-list/city-list';
 import { sortingCards } from '../../utils/sorting-cards';
 import SortingList from '../../components/sorting-list/sorting-list';
 import Header from '../../components/header/header';
+import MainEpty from '../../components/main-epty/main-epty';
 
 function MainPage() {
     const [activeCardId, setActiveCardId] = useState<number | undefined>(undefined);
     const state = useTypedSelector(state => state.CARDS);
-    const { activeCity, cards, cities, error, loading, sortType } = state;
+    const { activeCity, cards, cities, error, sortType } = state;
     const activeCityObj = cities.find(city => city.name === activeCity);
 
     if (error) {
         return <div>{error}</div>;
     }
 
-    if (loading) {
-        return <div>идет загрузка</div>;
-    }
-
     if (!cards.length) {
-        return <div>Элементы не найдены</div>;
+        return <MainEpty />;
     }
 
     let curCards = cards.filter(card => card.city.name === activeCity);
@@ -37,7 +34,6 @@ function MainPage() {
                 <h1 className="visually-hidden">Cities</h1>
 
                 {cities.length && activeCity && <CityList cities={cities} activeCity={activeCity} />}
-
 
                 <div className="cities">
                     <div className="cities__places-container container">

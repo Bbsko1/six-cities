@@ -77,7 +77,7 @@ export const checkAuth = (): ThunkActionResult => {
                 dispatch(userAuth(AuthorizationStatus.Auth));
 
                 const userObj: UserData = resolve.data;
-
+                
                 dispatch(changeUser(userObj));
             });
         } catch (e) {

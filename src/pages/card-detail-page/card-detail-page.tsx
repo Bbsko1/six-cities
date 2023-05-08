@@ -2,9 +2,10 @@ import { useParams, Navigate } from 'react-router-dom';
 import { CardProps } from '../../types/types';
 import { AppRoutes } from '../../const';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
-import Header from '../header/header';
+import Header from '../../components/header/header';
 
-function Property() {
+
+function CardDetailPage() {
     const { id } = useParams();
     const { cards } = useTypedSelector(state => state.CARDS);
 
@@ -288,4 +289,4 @@ function Property() {
     );
 }
 
-export default Property;
+export default CardDetailPage;
