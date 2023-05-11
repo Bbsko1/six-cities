@@ -11,6 +11,8 @@ const initialState: CardsState = {
     sortType: SortNames.Popular,
     authStatus: AuthorizationStatus.Unknown,
     userData: null,
+    nearby: [],
+    hotelComments: [],
 }
 
 export const cardReducer = (state: CardsState = initialState, action: LocationActions): CardsState => {
@@ -33,6 +35,10 @@ export const cardReducer = (state: CardsState = initialState, action: LocationAc
             return {...state, authStatus: action.payload};
         case ActionType.ChangeUserData:
             return {...state, userData: action.payload}
+        case ActionType.ChangeNearbyCards:
+            return {...state, nearby: action.payload}
+        case ActionType.GetHotelComments:
+            return {...state, hotelComments: action.payload}
         default:
             return state;
     }

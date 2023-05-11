@@ -1,6 +1,6 @@
 import { AuthorizationStatus, SortNames } from "../const";
 
-type Location = {
+export type Location = {
     latitude: number;
     longitude: number;
     zoom: number;
@@ -45,6 +45,8 @@ export type CardsState = {
     sortType: SortNames,
     authStatus: AuthorizationStatus,
     userData: UserData | null,
+    nearby: CardProps[] | [],
+    hotelComments: CommentsGet[] | [],
 }
 
 export type AuthData = {
@@ -58,5 +60,13 @@ export type UserData = {
     name: string,
     avatarUrl: string,
     isPro: boolean,
-    token: string,
+    token?: string,
+}
+
+export type CommentsGet = {
+    comment: string,
+    date: string,
+    id: number,
+    rating: number,
+    user: UserData,
 }

@@ -45,7 +45,7 @@ function MainPage() {
                         </section>
                         <div className="cities__right-section">
                             <section className="cities__map map">
-                                <Map cards={curCards} activeCardId={activeCardId} activeCity={activeCityObj ? activeCityObj : cities[0]} />
+                                <Map cards={curCards} activeCardId={activeCardId} location={activeCityObj?.location ? activeCityObj.location : cities[0].location} />
                             </section>
                         </div>
                     </div>

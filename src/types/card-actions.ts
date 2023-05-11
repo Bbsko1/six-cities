@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AuthorizationStatus, SortNames } from "../const";
-import { CardProps, CardsState, CityProps, UserData } from "./types";
+import { CardProps, CardsState, CityProps, CommentsGet, UserData } from "./types";
 import { AxiosInstance } from "axios";
 
 export enum ActionType {
@@ -13,6 +13,8 @@ export enum ActionType {
     ChangeSorting = 'main/changeSorting',
     RequireAuth = 'user/requireAuth',
     ChangeUserData = 'user/changeUserData',
+    ChangeNearbyCards = 'detail/nearbyCards',
+    GetHotelComments = 'detail/comments',
 }
 
 export type AddCitiesAction = {
@@ -59,7 +61,17 @@ export type ChangeUserDataAction = {
     payload: UserData | null,
 }
 
-export type LocationActions = AddCitiesAction | ChangeCityAction | ChangeCardListAction | FetchCardsAction | FetchCardsSuccessAction | FetchCardsErrorAction | ChangeSortingAction | UserAuthAction | ChangeUserDataAction;
+export type ChangeNearbyCardsAction = {
+    type: ActionType.ChangeNearbyCards,
+    payload: CardProps[] | [],
+}
+
+export type GetHotelCommentsAction = {
+    type: ActionType.GetHotelComments,
+    payload: CommentsGet[] | [],
+}
+
+export type LocationActions = AddCitiesAction | ChangeCityAction | ChangeCardListAction | FetchCardsAction | FetchCardsSuccessAction | FetchCardsErrorAction | ChangeSortingAction | UserAuthAction | ChangeUserDataAction | ChangeNearbyCardsAction | GetHotelCommentsAction;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, CardsState, AxiosInstance, LocationActions>;
 export type ThunkAppDispatch = ThunkDispatch<CardsState, AxiosInstance, LocationActions>;

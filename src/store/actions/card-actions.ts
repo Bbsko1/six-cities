@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
-import { ActionType, ChangeCardListAction, AddCitiesAction, FetchCardsAction, FetchCardsErrorAction, FetchCardsSuccessAction, ChangeCityAction, ChangeSortingAction, UserAuthAction, ThunkActionResult, ChangeUserDataAction } from "../../types/card-actions";
-import { AuthData, CardProps, CityProps, UserData } from "../../types/types";
+import { ActionType, ChangeCardListAction, AddCitiesAction, FetchCardsAction, FetchCardsErrorAction, FetchCardsSuccessAction, ChangeCityAction, ChangeSortingAction, UserAuthAction, ThunkActionResult, ChangeUserDataAction, ChangeNearbyCardsAction, GetHotelCommentsAction } from "../../types/card-actions";
+import { AuthData, CardProps, CityProps, CommentsGet, UserData } from "../../types/types";
 import { getCities } from "../../utils/get-cities";
 import { APIRoute, AuthorizationStatus, SortNames } from "../../const";
 import { Token, removeToken, saveToken } from "../../services/token";
@@ -49,6 +49,16 @@ export const changeUser = (useObj: UserData | null): ChangeUserDataAction => ({
     payload: useObj,
 });
 
+export const changeNearby = (nearbyData: CardProps[] | []): ChangeNearbyCardsAction => ({
+    type: ActionType.ChangeNearbyCards,
+    payload: nearbyData,
+});
+
+export const getHotelComments = (comments: CommentsGet[] | []): GetHotelCommentsAction => ({
+    type: ActionType.GetHotelComments,
+    payload: comments,
+});
+
 export const fetchCards = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         try {
@@ -90,7 +100,10 @@ export const loginAction = ({email, password}: AuthData): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
         
-        saveToken(data.token);
+        if (data.token) {
+            saveToken(data.token);
+        }
+        
         dispatch(userAuth(AuthorizationStatus.Auth));
         dispatch(changeUser(data));
     }
@@ -102,5 +115,37 @@ export const logoutAction = (): ThunkActionResult => {
         removeToken();
         dispatch(userAuth(AuthorizationStatus.NoAuth));
         dispatch(changeUser(null));
+    }
+}
+
+export const getNearbyAction = (link: string): ThunkActionResult => {
+    return async (dispatch, _getState, api) => {
+        try {
+            const nearbyData = (await api.get<CardProps[]>(link)).data;
+
+            if (nearbyData.length) {
+                dispatch(changeNearby(nearbyData));
+            } else {
+                dispatch(changeNearby([]));
+            }
+        } catch (e) {
+            dispatch(changeNearby([]));
+        }
+    }
+}
+
+export const getCommentsAction = (link: string): ThunkActionResult => {
+    return async (dispatch, _getState, api) => {
+        try {
+            const commentsData = (await api.get<CommentsGet[]>(link)).data;
+
+            if (commentsData.length) {
+                dispatch(getHotelComments(commentsData));
+            } else {
+                dispatch(getHotelComments([]));
+            }
+        } catch (e) {
+            dispatch(getHotelComments([]));
+        }
     }
 }

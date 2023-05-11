@@ -3,7 +3,7 @@ import { CardProps } from '../../types/types';
 
 type Props = {
     card: CardProps;
-    mouseEnter: () => void;
+    mouseEnter?: () => void;
 }
 
 function Card({ card, mouseEnter }: Props): JSX.Element {
@@ -16,7 +16,7 @@ function Card({ card, mouseEnter }: Props): JSX.Element {
                     <span>Premium</span>
                 </div>}
             <div className="cities__image-wrapper place-card__image-wrapper">
-                <Link to={`offer/${card.id}`}>
+                <Link to={`/offer/${card.id}`}>
                     <img className="place-card__image" src={card.previewImage} width="260" height="200" alt="Place" />
                 </Link>
             </div>
@@ -40,7 +40,7 @@ function Card({ card, mouseEnter }: Props): JSX.Element {
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <Link to={`offer/${card.id}`}>{card.title}</Link>
+                    <Link to={`/offer/${card.id}`}>{card.title}</Link>
                 </h2>
                 <p className="place-card__type">{card.type}</p>
             </div>
