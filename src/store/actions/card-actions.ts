@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { ActionType, ChangeCardListAction, AddCitiesAction, FetchCardsAction, FetchCardsErrorAction, FetchCardsSuccessAction, ChangeCityAction, ChangeSortingAction, UserAuthAction, ThunkActionResult, ChangeUserDataAction, ChangeNearbyCardsAction, GetHotelCommentsAction } from "../../types/card-actions";
+import { ActionType, ChangeCardListAction, AddCitiesAction, FetchCardsAction, FetchCardsErrorAction, FetchCardsSuccessAction, ChangeCityAction, ChangeSortingAction, UserAuthAction, ThunkActionResult, ChangeUserDataAction, ChangeNearbyCardsAction, GetHotelCommentsAction, GetFavoritesAction } from "../../types/card-actions";
 import { AuthData, CardProps, CityProps, CommentsGet, UserData } from "../../types/types";
 import { getCities } from "../../utils/get-cities";
 import { APIRoute, AuthorizationStatus, SortNames } from "../../const";
@@ -59,6 +59,11 @@ export const getHotelComments = (comments: CommentsGet[] | []): GetHotelComments
     payload: comments,
 });
 
+export const getFavorites = (favorites: CardProps[] | []): GetFavoritesAction => ({
+    type: ActionType.GetFavorites,
+    payload: favorites,
+});
+
 export const fetchCards = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         try {
@@ -115,6 +120,7 @@ export const logoutAction = (): ThunkActionResult => {
         removeToken();
         dispatch(userAuth(AuthorizationStatus.NoAuth));
         dispatch(changeUser(null));
+        dispatch(fetchCards());
     }
 }
 
@@ -146,6 +152,45 @@ export const getCommentsAction = (link: string): ThunkActionResult => {
             }
         } catch (e) {
             dispatch(getHotelComments([]));
+        }
+    }
+}
+
+export const fetchFavorites = (): ThunkActionResult => {
+    console.log('fetchFavoritesStart');
+    
+    return async (dispatch, _getState, api) => {
+        try {
+            const favoriteItems = (await api.get<CardProps[]>(APIRoute.Favorite)).data;       
+            
+            console.log('favoriteItems', favoriteItems);
+            
+
+            if (favoriteItems.length) {
+                dispatch(getFavorites(favoriteItems));
+            } else {
+                dispatch(getFavorites([]));
+            }
+        } catch (e) {
+            dispatch(getFavorites([]));
+        }
+    }
+}
+
+export const fetchToggleFavorite = (link: string): ThunkActionResult => {
+    return async (dispatch, getState, api) => {
+        try {
+            const {data} = await api.post<CardProps>(link);
+            const {cards} = getState().CARDS
+            
+            const indexCard = cards.findIndex(card => card.id === data.id);
+            
+            if (indexCard !== -1) {
+                cards.splice(indexCard, 1, data);
+                dispatch(fetchCardListSuccess(cards));
+            }
+        } catch (e) {
+            
         }
     }
 }

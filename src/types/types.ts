@@ -31,6 +31,12 @@ export type CardProps = {
     }
 }
 
+export type FavoriteProps = {
+    cityName: string,
+    id: number,
+    cards: CardProps[],
+}
+
 export type CityProps = {
     name: string;
     location: Location;
@@ -47,6 +53,7 @@ export type CardsState = {
     userData: UserData | null,
     nearby: CardProps[] | [],
     hotelComments: CommentsGet[] | [],
+    favorites: CardProps[] | [],
 }
 
 export type AuthData = {

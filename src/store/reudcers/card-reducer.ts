@@ -13,6 +13,7 @@ const initialState: CardsState = {
     userData: null,
     nearby: [],
     hotelComments: [],
+    favorites: [],
 }
 
 export const cardReducer = (state: CardsState = initialState, action: LocationActions): CardsState => {
@@ -22,11 +23,11 @@ export const cardReducer = (state: CardsState = initialState, action: LocationAc
         case ActionType.FetchCardsSuccess:
             return {...state, cards: action.payload, loading: false};
         case ActionType.FetchCardsError:
-            return {...state, error: action.payload, loading: false}
+            return {...state, error: action.payload, loading: false};
         case ActionType.AddCities:
             return {...state, cities: action.payload};
         case ActionType.ChangeCity:
-            return {...state, activeCity: action.payload}
+            return {...state, activeCity: action.payload};
         case ActionType.ChangeCardList:
             return {...state, cards: action.payload};
         case ActionType.ChangeSorting:
@@ -34,11 +35,13 @@ export const cardReducer = (state: CardsState = initialState, action: LocationAc
         case ActionType.RequireAuth:
             return {...state, authStatus: action.payload};
         case ActionType.ChangeUserData:
-            return {...state, userData: action.payload}
+            return {...state, userData: action.payload};
         case ActionType.ChangeNearbyCards:
-            return {...state, nearby: action.payload}
+            return {...state, nearby: action.payload};
         case ActionType.GetHotelComments:
-            return {...state, hotelComments: action.payload}
+            return {...state, hotelComments: action.payload};
+        case ActionType.GetFavorites:
+            return {...state, favorites: action.payload, loading: false};
         default:
             return state;
     }

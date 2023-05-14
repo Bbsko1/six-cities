@@ -10,7 +10,7 @@ function NearbyList({ nearby }: NearbyListProps) {
         <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-                {nearby.map(near => <Card key={near.id} card={near} />)}
+                {nearby.map(near => <Card key={near.id} card={near} isNearby={true} />)}
             </div>
         </section>
     );

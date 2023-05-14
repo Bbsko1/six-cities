@@ -2,8 +2,6 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { APIRoute } from "../../const";
 import { BACKEND_URL, createAPI } from "../../services/api";
-import { resolve } from "path";
-import { log } from "console";
 import { useDispatch } from "react-redux";
 import { ThunkAppDispatch } from "../../types/card-actions";
 import { getCommentsAction } from "../../store/actions/card-actions";

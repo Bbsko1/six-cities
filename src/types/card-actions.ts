@@ -2,6 +2,7 @@ import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AuthorizationStatus, SortNames } from "../const";
 import { CardProps, CardsState, CityProps, CommentsGet, UserData } from "./types";
 import { AxiosInstance } from "axios";
+import { RootState } from "../store/reudcers/root-reducer";
 
 export enum ActionType {
     AddCities = 'cities/AddCities',
@@ -15,6 +16,7 @@ export enum ActionType {
     ChangeUserData = 'user/changeUserData',
     ChangeNearbyCards = 'detail/nearbyCards',
     GetHotelComments = 'detail/comments',
+    GetFavorites = 'favorites/getFavorites',
 }
 
 export type AddCitiesAction = {
@@ -71,7 +73,12 @@ export type GetHotelCommentsAction = {
     payload: CommentsGet[] | [],
 }
 
-export type LocationActions = AddCitiesAction | ChangeCityAction | ChangeCardListAction | FetchCardsAction | FetchCardsSuccessAction | FetchCardsErrorAction | ChangeSortingAction | UserAuthAction | ChangeUserDataAction | ChangeNearbyCardsAction | GetHotelCommentsAction;
+export type GetFavoritesAction = {
+    type: ActionType.GetFavorites,
+    payload: CardProps[] | [],
+}
 
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, CardsState, AxiosInstance, LocationActions>;
-export type ThunkAppDispatch = ThunkDispatch<CardsState, AxiosInstance, LocationActions>;
+export type LocationActions = AddCitiesAction | ChangeCityAction | ChangeCardListAction | FetchCardsAction | FetchCardsSuccessAction | FetchCardsErrorAction | ChangeSortingAction | UserAuthAction | ChangeUserDataAction | ChangeNearbyCardsAction | GetHotelCommentsAction | GetFavoritesAction;
+
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, RootState, AxiosInstance, LocationActions>;
+export type ThunkAppDispatch = ThunkDispatch<RootState, AxiosInstance, LocationActions>;
