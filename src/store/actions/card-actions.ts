@@ -1,69 +1,92 @@
-import { ActionType, ChangeCardListAction, AddCitiesAction, FetchCardsAction, FetchCardsErrorAction, FetchCardsSuccessAction, ChangeCityAction, ChangeSortingAction, UserAuthAction, ThunkActionResult, ChangeUserDataAction, ChangeNearbyCardsAction, GetHotelCommentsAction, GetFavoritesAction } from "../../types/card-actions";
+import { ActionType, ThunkActionResult } from "../../types/card-actions";
 import { AuthData, CardProps, CityProps, CommentsGet, UserData } from "../../types/types";
 import { getCities } from "../../utils/get-cities";
 import { APIRoute, AuthorizationStatus, SortNames } from "../../const";
 import { removeToken, saveToken } from "../../services/token";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { createAction } from "@reduxjs/toolkit";
 
-export const addCities = (cities: CityProps[]): AddCitiesAction => ({
-    type: ActionType.AddCities,
-    payload: cities,
-});
+export const addCities = createAction(
+    ActionType.AddCities,
+    (cities: CityProps[]) => ({
+        payload: cities,
+    }),
+);
 
-export const changeActiveCity = (city: string): ChangeCityAction => ({
-    type: ActionType.ChangeCity,
-    payload: city,
-});
+export const changeActiveCity = createAction(
+    ActionType.ChangeCity,
+    (city: string) => ({
+        payload: city,
+    }),
+);
 
-export const changeCardList = (cards: CardProps[]): ChangeCardListAction => ({
-    type: ActionType.ChangeCardList,
-    payload: cards,
-});
+export const changeCardList = createAction(
+    ActionType.ChangeCardList,
+    (cards: CardProps[]) => ({
+        payload: cards,
+    }),
+);
 
-export const fetchCardList = (): FetchCardsAction => ({
-    type: ActionType.FetchCards,
-});
+export const fetchCardList = createAction(
+    ActionType.FetchCards,
+);
 
-export const fetchCardListSuccess = (cards: CardProps[]): FetchCardsSuccessAction => ({
-    type: ActionType.FetchCardsSuccess,
-    payload: cards,
-});
+export const fetchCardListSuccess = createAction(
+    ActionType.FetchCardsSuccess,
+    (cards: CardProps[]) => ({
+        payload: cards,
+    }),
+);
 
-export const fetchCardListError = (): FetchCardsErrorAction => ({
-    type: ActionType.FetchCardsError,
-    payload: 'Произошла ошибка при загрузке, попробуйте позже'
-});
+export const fetchCardListError = createAction(
+    ActionType.FetchCardsError,
+    () => ({
+        payload: 'Произошла ошибка при загрузке, попробуйте позже',
+    }),
+);
 
-export const changeSorting = (sortName: SortNames): ChangeSortingAction  => ({
-    type: ActionType.ChangeSorting,
-    payload: sortName,
-});
+export const changeSorting = createAction(
+    ActionType.ChangeSorting,
+    (sortName: SortNames) => ({
+        payload: sortName,
+    }),
+);
 
-export const userAuth = (authType: AuthorizationStatus): UserAuthAction => ({
-    type: ActionType.RequireAuth,
-    payload: authType,
-});
+export const userAuth = createAction(
+    ActionType.RequireAuth,
+    (authType: AuthorizationStatus) => ({
+        payload: authType,
+    }),
+);
 
-export const changeUser = (useObj: UserData | null): ChangeUserDataAction => ({
-    type: ActionType.ChangeUserData,
-    payload: useObj,
-});
+export const changeUser = createAction(
+    ActionType.ChangeUserData,
+    (useObj: UserData | null) => ({
+        payload: useObj,
+    }),
+);
 
-export const changeNearby = (nearbyData: CardProps[] | []): ChangeNearbyCardsAction => ({
-    type: ActionType.ChangeNearbyCards,
-    payload: nearbyData,
-});
+export const changeNearby = createAction(
+    ActionType.ChangeNearbyCards,
+    (nearbyData: CardProps[] | []) => ({
+        payload: nearbyData,
+    }),
+);
 
-export const getHotelComments = (comments: CommentsGet[] | []): GetHotelCommentsAction => ({
-    type: ActionType.GetHotelComments,
-    payload: comments,
-});
+export const getHotelComments = createAction(
+    ActionType.GetHotelComments,
+    (comments: CommentsGet[] | []) => ({
+        payload: comments,
+    }),
+);
 
-export const getFavorites = (favorites: CardProps[] | []): GetFavoritesAction => ({
-    type: ActionType.GetFavorites,
-    payload: favorites,
-});
+export const getFavorites = createAction(
+    ActionType.GetFavorites,
+    (favorites: CardProps[] | []) => ({
+        payload: favorites,
+    }),
+);
 
 export const fetchCards = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
