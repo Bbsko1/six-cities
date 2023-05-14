@@ -4,7 +4,7 @@ import { getCities } from "../../utils/get-cities";
 import { APIRoute, AuthorizationStatus, SortNames } from "../../const";
 import { removeToken, saveToken } from "../../services/token";
 import { toast } from "react-toastify";
-import axios, { AxiosError, AxiosInstance } from "axios";
+import axios from "axios";
 
 export const addCities = (cities: CityProps[]): AddCitiesAction => ({
     type: ActionType.AddCities,
@@ -82,6 +82,7 @@ export const fetchCards = (): ThunkActionResult => {
             dispatch(fetchCardListSuccess(data));
         } catch (e) {
             dispatch(fetchCardListError());
+            toast.info('Something went wrong');
         }
     }
 }
@@ -169,6 +170,7 @@ export const fetchFavorites = (): ThunkActionResult => {
             }
         } catch (e) {
             dispatch(getFavorites([]));
+            toast.info('Something went wrong');
         }
     }
 }
@@ -188,6 +190,8 @@ export const fetchToggleFavorite = (link: string): ThunkActionResult => {
         } catch (e) {
             if (axios.isAxiosError(e) && e.response?.status === 401) {
                 toast.info('You need to log in to use bookmarks');
+            } else {
+                toast.info('Something went wrong');
             }
         }
     }
