@@ -1,9 +1,10 @@
-import { Dispatch } from "redux";
 import { ActionType, ChangeCardListAction, AddCitiesAction, FetchCardsAction, FetchCardsErrorAction, FetchCardsSuccessAction, ChangeCityAction, ChangeSortingAction, UserAuthAction, ThunkActionResult, ChangeUserDataAction, ChangeNearbyCardsAction, GetHotelCommentsAction, GetFavoritesAction } from "../../types/card-actions";
 import { AuthData, CardProps, CityProps, CommentsGet, UserData } from "../../types/types";
 import { getCities } from "../../utils/get-cities";
 import { APIRoute, AuthorizationStatus, SortNames } from "../../const";
-import { Token, removeToken, saveToken } from "../../services/token";
+import { removeToken, saveToken } from "../../services/token";
+import { toast } from "react-toastify";
+import axios, { AxiosError, AxiosInstance } from "axios";
 
 export const addCities = (cities: CityProps[]): AddCitiesAction => ({
     type: ActionType.AddCities,
@@ -156,15 +157,10 @@ export const getCommentsAction = (link: string): ThunkActionResult => {
     }
 }
 
-export const fetchFavorites = (): ThunkActionResult => {
-    console.log('fetchFavoritesStart');
-    
+export const fetchFavorites = (): ThunkActionResult => {   
     return async (dispatch, _getState, api) => {
         try {
             const favoriteItems = (await api.get<CardProps[]>(APIRoute.Favorite)).data;       
-            
-            console.log('favoriteItems', favoriteItems);
-            
 
             if (favoriteItems.length) {
                 dispatch(getFavorites(favoriteItems));
@@ -190,7 +186,9 @@ export const fetchToggleFavorite = (link: string): ThunkActionResult => {
                 dispatch(fetchCardListSuccess(cards));
             }
         } catch (e) {
-            
+            if (axios.isAxiosError(e) && e.response?.status === 401) {
+                toast.info('You need to log in to use bookmarks');
+            }
         }
     }
 }
