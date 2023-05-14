@@ -7,7 +7,7 @@ import { ThunkAppDispatch } from '../../types/card-actions';
 import { logoutAction } from '../../store/actions/card-actions';
 
 function Header() {
-    const state = useTypedSelector(state => state.CARDS);
+    const state = useTypedSelector(state => state.USER);
     const { authStatus, userData } = state;
     const dispatch = useDispatch();
 

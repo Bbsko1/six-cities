@@ -10,8 +10,9 @@ import Logo from '../../components/logo/logo';
 function LoginPage() {
     const loginRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    const state = useTypedSelector(state => state.CARDS);
-    const { activeCity, authStatus } = state;
+    const {activeCity} = useTypedSelector(state => state.CITIES);
+    const {authStatus} = useTypedSelector(state => state.USER);
+
     const dispatch = useDispatch();
 
     if (authStatus === AuthorizationStatus.Auth) {

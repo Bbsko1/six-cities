@@ -1,28 +1,28 @@
 import { AuthorizationStatus, SortNames } from "../const";
 
 export type Location = {
-    latitude: number;
-    longitude: number;
-    zoom: number;
+    latitude: number,
+    longitude: number,
+    zoom: number,
 }
 
 export type CardProps = {
-    id: number;
-    title: string;
-    previewImage: string;
-    type: string;
-    price: number;
-    rating: number;
-    active?: boolean; /* Не приходит */
-    isPremium: boolean;
-    isFavorite: boolean;
-    location: Location;
-    city: CityProps;
-    description: string;
-    goods: string[];
-    images: string[];
-    maxAdults: number;
-    bedrooms: number;
+    id: number,
+    title: string,
+    previewImage: string,
+    type: string,
+    price: number,
+    rating: number,
+    active?: boolean, /* Не приходит */
+    isPremium: boolean,
+    isFavorite: boolean,
+    location: Location,
+    city: CityProps,
+    description: string,
+    goods: string[],
+    images: string[],
+    maxAdults: number,
+    bedrooms: number,
     host: {
         avatarUrl: string,
         id: number,
@@ -43,17 +43,23 @@ export type CityProps = {
 }
 
 export type CardsState = {
-    cities: CityProps[] | [];
-    activeCity: null | string;
-    cards: CardProps[] | [];
+    cards: CardProps[] | [],
     loading: boolean,
     error: null | string,
     sortType: SortNames,
-    authStatus: AuthorizationStatus,
-    userData: UserData | null,
     nearby: CardProps[] | [],
     hotelComments: CommentsGet[] | [],
     favorites: CardProps[] | [],
+}
+
+export type UserState = {
+    userData: UserData | null,
+    authStatus: AuthorizationStatus,
+}
+
+export type CityState = {
+    cities: CityProps[] | [],
+    activeCity: null | string,
 }
 
 export type AuthData = {

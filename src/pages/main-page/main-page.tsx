@@ -8,16 +8,14 @@ import { sortingCards } from '../../utils/sorting-cards';
 import SortingList from '../../components/sorting-list/sorting-list';
 import Header from '../../components/header/header';
 import MainEpty from '../../components/main-epty/main-epty';
-import { createBrowserHistory } from 'history';
 import { useDispatch } from 'react-redux';
-import { changeActiveCity } from '../../store/actions/card-actions';
 
 function MainPage() {
     const [activeCardId, setActiveCardId] = useState<number | undefined>(undefined);
-    const state = useTypedSelector(state => state.CARDS);
-    const { activeCity, cards, cities, error, sortType } = state;
+    const {  cards, error, sortType } = useTypedSelector(state => state.CARDS);
+    const { activeCity, cities } = useTypedSelector(state => state.CITIES);
+
     const activeCityObj = cities.find(city => city.name === activeCity);
-    const dispatch = useDispatch();
 
     if (error) {
         return <div>{error}</div>;

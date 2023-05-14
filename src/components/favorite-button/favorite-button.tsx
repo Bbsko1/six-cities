@@ -15,7 +15,7 @@ type FavoriteButtonProps = {
 
 function FavoriteButton({ isActive, cardId, isFavoritePage, isDetail, isNearby }: FavoriteButtonProps) {
     const dispatch = useDispatch();
-    const { authStatus } = useTypedSelector(state => state.CARDS);
+    const { authStatus } = useTypedSelector(state => state.USER);
     let favLink = `${APIRoute.Favorite}/${cardId}/`;
     const svtWidth = isDetail ? 31 : 18;
     const svgHeight = isDetail ? 33 : 19;

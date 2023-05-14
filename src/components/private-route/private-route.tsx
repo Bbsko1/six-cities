@@ -8,7 +8,7 @@ type PrivateRouteProps = {
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
     const { children } = props;
-    const authorizationStatus = useTypedSelector(state => state.CARDS).authStatus;
+    const authorizationStatus = useTypedSelector(state => state.USER.authStatus);
 
     return (
         authorizationStatus === AuthorizationStatus.Auth

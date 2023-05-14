@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AuthorizationStatus, SortNames } from "../const";
-import { CardProps, CardsState, CityProps, CommentsGet, UserData } from "./types";
+import { CardProps, CityProps, CommentsGet, UserData } from "./types";
 import { AxiosInstance } from "axios";
 import { RootState } from "../store/reudcers/root-reducer";
 

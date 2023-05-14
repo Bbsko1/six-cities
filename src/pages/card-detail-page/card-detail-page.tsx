@@ -16,7 +16,8 @@ import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 function CardDetailPage() {
     const { id } = useParams();
-    const { cards, authStatus } = useTypedSelector(state => state.CARDS);
+    const { cards } = useTypedSelector(state => state.CARDS);
+    const { authStatus } = useTypedSelector(state => state.USER);
 
     const currentCard: CardProps | undefined = cards.find((card) => card.id === Number(id));
 

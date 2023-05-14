@@ -11,7 +11,7 @@ type FavoriteCityProps = {
 }
 
 function FavoriteCity({favoriteCity}: FavoriteCityProps) {
-    const {activeCity} = useTypedSelector(state => state.CARDS);
+    const {activeCity} = useTypedSelector(state => state.CITIES);
     const dispatch = useDispatch();
 
     const handleChangeCity = (): void => {
