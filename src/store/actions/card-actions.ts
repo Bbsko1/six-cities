@@ -82,7 +82,7 @@ export const fetchCards = (): ThunkActionResult => {
             dispatch(fetchCardListSuccess(data));
         } catch (e) {
             dispatch(fetchCardListError());
-            toast.info('Something went wrong');
+            toast.info('Something went wrong fetchCards');
         }
     }
 }
@@ -170,7 +170,7 @@ export const fetchFavorites = (): ThunkActionResult => {
             }
         } catch (e) {
             dispatch(getFavorites([]));
-            toast.info('Something went wrong');
+            toast.info('Something went wrong fetchFavorites');
         }
     }
 }
@@ -191,7 +191,9 @@ export const fetchToggleFavorite = (link: string): ThunkActionResult => {
             if (axios.isAxiosError(e) && e.response?.status === 401) {
                 toast.info('You need to log in to use bookmarks');
             } else {
-                toast.info('Something went wrong');
+                toast.info('Something went wrong fetchToggleFavorite');
+                console.log('e', e);
+                
             }
         }
     }
