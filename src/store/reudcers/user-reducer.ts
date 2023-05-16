@@ -11,14 +11,7 @@ const initialState: UserState = {
 export const userSlice = createSlice({
     name: 'name',
     initialState,
-    reducers: {
-        requireAuth(state, action: PayloadAction<AuthorizationStatus>) {
-            state.authStatus = action.payload;
-        },
-        changeUserData(state, action: PayloadAction<UserData | null>) {
-            state.userData = action.payload;
-        }
-    },
+    reducers: {},
     extraReducers: {
         [fetchCheckAuth.fulfilled.type]: (state, action: PayloadAction<UserData>) => {
             state.authStatus = AuthorizationStatus.Auth;
