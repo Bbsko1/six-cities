@@ -87,7 +87,7 @@ export const getFavorites = createAction(
         payload: favorites,
     }),
 );
-
+/* 
 export const fetchCards = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         try {
@@ -108,7 +108,16 @@ export const fetchCards = (): ThunkActionResult => {
             toast.info('Something went wrong fetchCards');
         }
     }
-}
+} */
+
+export const fetchCards = createAsyncThunk<CardProps[], undefined, {extra: AxiosInstance}>(
+    'cards/fetchCards',
+    async (_args, {extra: api}) => {
+        const { data } = await api.get<CardProps[]>(APIRoute.Hotels);
+
+        return data;
+    },
+);
 
 export const fetchCheckAuth = createAsyncThunk<UserData, undefined, {extra: AxiosInstance}>(
     'user/checkAuth',
@@ -150,7 +159,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {extra: AxiosInsta
         /* TODO dispatch fetchCards */
     }
 );
-
+/* 
 export const getNearbyAction = (link: string): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         try {
@@ -165,8 +174,17 @@ export const getNearbyAction = (link: string): ThunkActionResult => {
             dispatch(changeNearby([]));
         }
     }
-}
+} */
 
+export const getNearbyAction = createAsyncThunk<CardProps[], string, {extra: AxiosInstance}>(
+    'cards/nearby',
+    async (link, {extra: api}) => {
+        const nearbyData = (await api.get<CardProps[]>(link)).data;
+
+        return nearbyData;
+    }
+);
+/* 
 export const getCommentsAction = (link: string): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         try {
@@ -181,8 +199,17 @@ export const getCommentsAction = (link: string): ThunkActionResult => {
             dispatch(getHotelComments([]));
         }
     }
-}
+} */
 
+export const getCommentsAction = createAsyncThunk<CommentsGet[] | [], string, {extra: AxiosInstance}>(
+    'cards/comments',
+    async (link, {extra: api}) => {
+        const commentsData = (await api.get<CommentsGet[]>(link)).data;
+
+        return commentsData;
+    }
+);
+/* 
 export const fetchFavorites = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         try {
@@ -198,8 +225,17 @@ export const fetchFavorites = (): ThunkActionResult => {
             toast.info('Something went wrong fetchFavorites');
         }
     }
-}
+} */
 
+export const fetchFavorites = createAsyncThunk<CardProps[] | [], undefined, {extra: AxiosInstance }>(
+    'cards/favorites',
+    async (_args, {extra: api}) => {
+        const favoriteItems = (await api.get<CardProps[]>(APIRoute.Favorite)).data;
+
+        return favoriteItems;
+    }
+);
+/* 
 export const fetchToggleFavorite = (link: string): ThunkActionResult => {
     return async (dispatch, getState, api) => {
         try {
@@ -218,8 +254,24 @@ export const fetchToggleFavorite = (link: string): ThunkActionResult => {
             } else {
                 toast.info('Something went wrong fetchToggleFavorite');
                 console.log('e', e);
-
             }
         }
     }
-}
+} */
+
+export const fetchToggleFavorite = createAsyncThunk<CardProps | void, string, {extra: AxiosInstance}>(
+    'cards/toggleFavorite',
+    async (link, {extra: api}) => {
+        try {
+            const { data } = await api.post<CardProps>(link);
+
+            return data;
+        } catch (e) {
+            if (axios.isAxiosError(e) && e.response?.status === 401) {
+                toast.info('You need to log in to use bookmarks');
+            } else {
+                toast.info('Something went wrong fetchToggleFavorite');
+            }
+        }
+    }
+);
