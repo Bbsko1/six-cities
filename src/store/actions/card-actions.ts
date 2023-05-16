@@ -4,8 +4,8 @@ import { getCities } from "../../utils/get-cities";
 import { APIRoute, AuthorizationStatus, SortNames } from "../../const";
 import { removeToken, saveToken } from "../../services/token";
 import { toast } from "react-toastify";
-import axios from "axios";
-import { createAction } from "@reduxjs/toolkit";
+import axios, { AxiosInstance } from "axios";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const addCities = createAction(
     ActionType.AddCities,
@@ -93,15 +93,15 @@ export const fetchCards = (): ThunkActionResult => {
         try {
             dispatch(fetchCardList());
 
-            const {data} = await api.get<CardProps[]>(APIRoute.Hotels);
-            
+            const { data } = await api.get<CardProps[]>(APIRoute.Hotels);
+
             const cities = getCities(data);
 
             if (cities) {
                 dispatch(addCities(cities));
                 dispatch(changeActiveCity(cities[0].name));
             }
-            
+
             dispatch(fetchCardListSuccess(data));
         } catch (e) {
             dispatch(fetchCardListError());
@@ -110,36 +110,29 @@ export const fetchCards = (): ThunkActionResult => {
     }
 }
 
-export const checkAuth = (): ThunkActionResult => {
-    return async (dispatch, _getState, api) => {
-        try {
-            await api.get(APIRoute.Login).then((resolve) => {                
-                dispatch(userAuth(AuthorizationStatus.Auth));
+export const fetchCheckAuth = createAsyncThunk<UserData, undefined, {extra: AxiosInstance}>(
+    'user/checkAuth',
+    async (_args, {extra: api}) => {
+        const {data} = await api.get<UserData>(APIRoute.Login);
 
-                const userObj: UserData = resolve.data;
-                
-                dispatch(changeUser(userObj));
-            });
-        } catch (e) {
-            
-        }
+        return data;
     }
-};
+);
 
-export const loginAction = ({email, password}: AuthData): ThunkActionResult => {
-    return async (dispatch, _getState, api) => {
-        const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
-        
+export const loginAction = createAsyncThunk<UserData, AuthData, {extra: AxiosInstance}>(
+    'user/changeUserData',
+    async ({email, password}, {extra: api}) => {
+        const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+
         if (data.token) {
             saveToken(data.token);
         }
-        
-        dispatch(userAuth(AuthorizationStatus.Auth));
-        dispatch(changeUser(data));
-    }
-}
 
-export const logoutAction = (): ThunkActionResult => {
+        return data;
+    }
+);
+
+/* export const logoutAction = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         api.delete(APIRoute.Logout);
         removeToken();
@@ -147,7 +140,16 @@ export const logoutAction = (): ThunkActionResult => {
         dispatch(changeUser(null));
         dispatch(fetchCards());
     }
-}
+} */
+
+export const logoutAction = createAsyncThunk<void, undefined, {extra: AxiosInstance}>(
+    'user/logout',
+    async (_args, {extra: api}) => {
+        api.delete(APIRoute.Logout);
+        removeToken();
+        /* TODO dispatch fetchCards */
+    }
+);
 
 export const getNearbyAction = (link: string): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
@@ -181,10 +183,10 @@ export const getCommentsAction = (link: string): ThunkActionResult => {
     }
 }
 
-export const fetchFavorites = (): ThunkActionResult => {   
+export const fetchFavorites = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
         try {
-            const favoriteItems = (await api.get<CardProps[]>(APIRoute.Favorite)).data;       
+            const favoriteItems = (await api.get<CardProps[]>(APIRoute.Favorite)).data;
 
             if (favoriteItems.length) {
                 dispatch(getFavorites(favoriteItems));
@@ -201,11 +203,11 @@ export const fetchFavorites = (): ThunkActionResult => {
 export const fetchToggleFavorite = (link: string): ThunkActionResult => {
     return async (dispatch, getState, api) => {
         try {
-            const {data} = await api.post<CardProps>(link);
-            const {cards} = getState().CARDS
-            
+            const { data } = await api.post<CardProps>(link);
+            const { cards } = getState().CARDS
+
             const indexCard = cards.findIndex(card => card.id === data.id);
-            
+
             if (indexCard !== -1) {
                 cards.splice(indexCard, 1, data);
                 dispatch(fetchCardListSuccess(cards));
@@ -216,7 +218,7 @@ export const fetchToggleFavorite = (link: string): ThunkActionResult => {
             } else {
                 toast.info('Something went wrong fetchToggleFavorite');
                 console.log('e', e);
-                
+
             }
         }
     }
