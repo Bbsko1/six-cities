@@ -1,9 +1,7 @@
 import { FormEvent, useRef } from 'react';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
 import { Link, Navigate } from 'react-router-dom';
 import { AppRoutes, AuthorizationStatus } from '../../const';
-import { ThunkAppDispatch } from '../../types/card-actions'
-import { useDispatch } from 'react-redux';
 import { loginAction } from '../../store/actions/card-actions';
 import Logo from '../../components/logo/logo';
 
@@ -13,7 +11,7 @@ function LoginPage() {
     const {activeCity} = useTypedSelector(state => state.CITIES);
     const {authStatus} = useTypedSelector(state => state.USER);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     if (authStatus === AuthorizationStatus.Auth) {
         return <Navigate to={AppRoutes.Main} />
@@ -23,7 +21,7 @@ function LoginPage() {
         evt.preventDefault();
 
         if (loginRef.current !== null && passwordRef.current !== null) {
-            (dispatch as ThunkAppDispatch)(loginAction({
+            dispatch(loginAction({
                 email: loginRef.current.value,
                 password: passwordRef.current.value
             }));

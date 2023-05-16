@@ -1,18 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import { AppRoutes, AuthorizationStatus } from '../../const';
 import Logo from '../logo/logo';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { useDispatch } from 'react-redux';
-import { ThunkAppDispatch } from '../../types/card-actions';
+import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
 import { logoutAction } from '../../store/actions/card-actions';
 
 function Header() {
     const state = useTypedSelector(state => state.USER);
     const { authStatus, userData } = state;
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleLogOut = (): void => {
-        (dispatch as ThunkAppDispatch)(logoutAction());
+        dispatch(logoutAction());
     }
 
     return (
