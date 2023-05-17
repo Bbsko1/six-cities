@@ -3,7 +3,6 @@ import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import {  fetchCards, fetchCheckAuth } from './store/actions/card-actions';
-/* import { ThunkAppDispatch } from './types/card-actions'; */
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

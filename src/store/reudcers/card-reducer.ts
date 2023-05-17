@@ -1,4 +1,4 @@
-import { CardProps, CardsState, CommentsGet } from "../../types/types";
+import { CardsState } from "../../types/types";
 import { SortNames } from "../../const";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
@@ -19,29 +19,6 @@ const initialState: CardsState = {
     hotelComments: [],
     favorites: [],
 };
-/* 
-export const cardReducer = (state: CardsState = initialState, action: LocationActions): CardsState => {
-    switch (action.type) {
-        case ActionType.FetchCards:
-            return {...state, loading: true};
-        case ActionType.FetchCardsSuccess:
-            return {...state, cards: action.payload, loading: false};
-        case ActionType.FetchCardsError:
-            return {...state, error: action.payload, loading: false};
-        case ActionType.ChangeCardList:
-            return {...state, cards: action.payload};
-        case ActionType.ChangeSorting:
-            return {...state, sortType: action.payload};
-        case ActionType.ChangeNearbyCards:
-            return {...state, nearby: action.payload};
-        case ActionType.GetHotelComments:
-            return {...state, hotelComments: action.payload};
-        case ActionType.GetFavorites:
-            return {...state, favorites: action.payload, loading: false};
-        default:
-            return state;
-    }
-} */
 
 export const cardReducer = createSlice({
     name: "cards",
