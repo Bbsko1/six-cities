@@ -1,7 +1,7 @@
-import { CommentsGet } from "../../types/types";
+import { CommentsGet } from '../../types/types';
 
 type ReviewItemProps = {
-    review: CommentsGet,
+    review: CommentsGet;
 }
 
 function ReviewItem({ review }: ReviewItemProps) {
@@ -22,7 +22,7 @@ function ReviewItem({ review }: ReviewItemProps) {
             <div className="reviews__info">
                 <div className="reviews__rating rating">
                     <div className="reviews__stars rating__stars">
-                        <span style={{ width: `${review.rating*20}%` }}></span>
+                        <span style={{ width: `${review.rating * 20}%` }}></span>
                         <span className="visually-hidden">Rating</span>
                     </div>
                 </div>

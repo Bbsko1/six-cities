@@ -1,8 +1,8 @@
-import { CardProps } from "../../types/types";
-import Card from "../card/card";
+import { CardProps } from '../../types/types';
+import Card from '../card/card';
 
 type NearbyListProps = {
-    nearby: CardProps[],
+    nearby: CardProps[];
 }
 
 function NearbyList({ nearby }: NearbyListProps) {
@@ -10,7 +10,7 @@ function NearbyList({ nearby }: NearbyListProps) {
         <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-                {nearby.map(near => <Card key={near.id} card={near} isNearby={true} />)}
+                {nearby.map((near) => <Card key={near.id} card={near} isNearby />)}
             </div>
         </section>
     );

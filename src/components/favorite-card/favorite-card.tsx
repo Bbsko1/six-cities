@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import { CardProps } from "../../types/types";
-import FavoriteButton from "../favorite-button/favorite-button";
+import { Link } from 'react-router-dom';
+import { CardProps } from '../../types/types';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type FavoriteCardProps = {
-    favoriteCard: CardProps,
+    favoriteCard: CardProps;
 }
 
 function FavoriteCard({ favoriteCard }: FavoriteCardProps) {
@@ -23,7 +23,7 @@ function FavoriteCard({ favoriteCard }: FavoriteCardProps) {
                         <b className="place-card__price-value">&euro;{favoriteCard.price}</b>
                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
-                    <FavoriteButton isActive={favoriteCard.isFavorite} cardId={favoriteCard.id} isFavoritePage={true} />
+                    <FavoriteButton isActive={favoriteCard.isFavorite} cardId={favoriteCard.id} isFavoritePage />
                 </div>
                 <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">

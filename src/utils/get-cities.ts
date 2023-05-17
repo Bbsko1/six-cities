@@ -1,10 +1,10 @@
-import { CardProps, CityProps } from "../types/types";
+import { CardProps, CityProps } from '../types/types';
 
 export const getCities = (cards: CardProps[]): CityProps[] | null => {
-    let cities: string[] = [];
-    let citiesData: CityProps[] = [];
+    const cities: string[] = [];
+    const citiesData: CityProps[] = [];
 
-    if (!cards.length) return null;
+    if (!cards.length) {return null;}
 
     cards.forEach((card) => {
         if (!cities.includes(card.city.name)) {
@@ -16,4 +16,4 @@ export const getCities = (cards: CardProps[]): CityProps[] | null => {
     citiesData.sort((a, b) => a.name.localeCompare(b.name));
 
     return citiesData;
-}
+};

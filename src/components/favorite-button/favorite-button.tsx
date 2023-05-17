@@ -1,48 +1,50 @@
-import { APIRoute, AppRoutes, AuthorizationStatus } from "../../const";
-import { fetchToggleFavorite, fetchFavorites, getNearbyAction } from "../../store/actions/card-actions";
-import { useNavigate, useParams, redirect } from "react-router-dom";
-import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
+import { APIRoute, AppRoutes, AuthorizationStatus } from '../../const';
+import { fetchToggleFavorite, fetchFavorites, getNearbyAction } from '../../store/actions/card-actions';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
 
 type FavoriteButtonProps = {
-    isActive: boolean,
-    cardId: number,
-    isDetail?: boolean,
-    isFavoritePage?: boolean,
-    isNearby?: boolean,
+    isActive: boolean;
+    cardId: number;
+    isDetail?: boolean;
+    isFavoritePage?: boolean;
+    isNearby?: boolean;
 }
 
 function FavoriteButton({ isActive, cardId, isFavoritePage, isDetail, isNearby }: FavoriteButtonProps) {
     const dispatch = useAppDispatch();
-    const { authStatus } = useTypedSelector(state => state.USER);
+    const { authStatus } = useTypedSelector((state) => state.USER);
     let favLink = `${APIRoute.Favorite}/${cardId}/`;
     const svtWidth = isDetail ? 31 : 18;
     const svgHeight = isDetail ? 33 : 19;
     const { id } = useParams();
     const navigate = useNavigate();
 
-    const toggleFavorite = async () => {
-        if (isActive) {
-            favLink += 0;
-        } else {
-            favLink += 1;
-        }
+    const toggleFavorite = () => {
+        (async () => {
+            if (isActive) {
+                favLink += 0;
+            } else {
+                favLink += 1;
+            }
 
-        await dispatch(fetchToggleFavorite(favLink));
+            await dispatch(fetchToggleFavorite(favLink));
 
-        if (authStatus !== AuthorizationStatus.Auth) {
-            navigate(AppRoutes.Login)
-            return;
-        }
+            if (authStatus !== AuthorizationStatus.Auth) {
+                navigate(AppRoutes.Login);
+                return;
+            }
 
-        if (isFavoritePage) {
-            dispatch(fetchFavorites());
-        }
+            if (isFavoritePage) {
+                dispatch(fetchFavorites());
+            }
 
-        if (isNearby && id) {
-            const nearbyLink = `${APIRoute.Hotels}/${id}/nearby`;
-            dispatch(getNearbyAction(nearbyLink));
-        }
-    }
+            if (isNearby && id) {
+                const nearbyLink = `${APIRoute.Hotels}/${id}/nearby`;
+                dispatch(getNearbyAction(nearbyLink));
+            }
+        })();
+    };
 
     return (
         <button className={`button ${isDetail ? 'property__bookmark-button' : 'place-card__bookmark-button'} ${isActive ? 'place-card__bookmark-button--active' : ''}`} onClick={toggleFavorite} type="button">

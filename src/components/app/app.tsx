@@ -9,7 +9,7 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import CardDetailPage from '../../pages/card-detail-page/card-detail-page';
 
 function App(): JSX.Element {
-    const loading = useTypedSelector(state => state.CARDS.loading);
+    const loading = useTypedSelector((state) => state.CARDS.loading);
 
     if (loading) {
         return (

@@ -8,13 +8,13 @@ import Logo from '../../components/logo/logo';
 function LoginPage() {
     const loginRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    const {activeCity} = useTypedSelector(state => state.CITIES);
-    const {authStatus} = useTypedSelector(state => state.USER);
+    const {activeCity} = useTypedSelector((state) => state.CITIES);
+    const {authStatus} = useTypedSelector((state) => state.USER);
 
     const dispatch = useAppDispatch();
 
     if (authStatus === AuthorizationStatus.Auth) {
-        return <Navigate to={AppRoutes.Main} />
+        return <Navigate to={AppRoutes.Main} />;
     }
 
     const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -26,7 +26,7 @@ function LoginPage() {
                 password: passwordRef.current.value
             }));
         }
-    }
+    };
 
     return (
         <div className="page page--gray page--login">

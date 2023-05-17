@@ -5,13 +5,12 @@ import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
 import { logoutAction } from '../../store/actions/card-actions';
 
 function Header() {
-    const state = useTypedSelector(state => state.USER);
-    const { authStatus, userData } = state;
+    const { authStatus, userData } = useTypedSelector((state) => state.USER);
     const dispatch = useAppDispatch();
 
     const handleLogOut = (): void => {
         dispatch(logoutAction());
-    }
+    };
 
     return (
         <header className="header">
@@ -28,11 +27,12 @@ function Header() {
                                         <div className="header__avatar-wrapper user__avatar-wrapper" style={{
                                             backgroundImage: `url(${userData.avatarUrl})`,
                                             borderRadius: '50%',
-                                        }}></div>
+                                        }}
+                                        >
+                                        </div>
                                         <span className="header__user-name user__name">{userData.email}</span>
                                     </NavLink>
-                                </li>
-                            }
+                                </li>}
 
                             <li className="header__nav-item">
                                 {authStatus === AuthorizationStatus.Auth ?
@@ -42,8 +42,7 @@ function Header() {
                                     :
                                     <NavLink className="header__nav-link" to={AppRoutes.Login}>
                                         <span className="header__signout">Sign in</span>
-                                    </NavLink>
-                                }
+                                    </NavLink>}
 
                             </li>
                         </ul>

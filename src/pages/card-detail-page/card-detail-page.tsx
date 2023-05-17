@@ -14,8 +14,8 @@ import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 function CardDetailPage() {
     const { id } = useParams();
-    const { cards } = useTypedSelector(state => state.CARDS);
-    const { authStatus } = useTypedSelector(state => state.USER);
+    const { cards } = useTypedSelector((state) => state.CARDS);
+    const { authStatus } = useTypedSelector((state) => state.USER);
 
     const currentCard: CardProps | undefined = cards.find((card) => card.id === Number(id));
 
@@ -24,7 +24,7 @@ function CardDetailPage() {
     }
 
     const dispatch = useAppDispatch();
-    const { nearby, hotelComments } = useTypedSelector(state => state.CARDS)
+    const { nearby, hotelComments } = useTypedSelector((state) => state.CARDS);
 
     useEffect(() => {
         const nearbyLink = `${APIRoute.Hotels}/${id}/nearby`;
@@ -42,13 +42,11 @@ function CardDetailPage() {
                 <section className="property">
                     <div className="property__gallery-container container">
                         <div className="property__gallery">
-                            {currentCard.images.map(imageSrc => {
-                                return (
-                                    <div key={imageSrc} className="property__image-wrapper">
-                                        <img className="property__image" src={imageSrc} alt="Studio" />
-                                    </div>
-                                );
-                            })}
+                            {currentCard.images.map((imageSrc) => (
+                                <div key={imageSrc} className="property__image-wrapper">
+                                    <img className="property__image" src={imageSrc} alt="Studio" />
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="property__container container">
@@ -68,7 +66,7 @@ function CardDetailPage() {
                                     <span className="visually-hidden">To bookmarks</span>
                                 </button> */}
 
-                                <FavoriteButton cardId={Number(id)} isActive={currentCard.isFavorite} isDetail={true} />
+                                <FavoriteButton cardId={Number(id)} isActive={currentCard.isFavorite} isDetail />
                             </div>
                             <div className="property__rating rating">
                                 <div className="property__stars rating__stars">
@@ -95,7 +93,7 @@ function CardDetailPage() {
                             <div className="property__inside">
                                 <h2 className="property__inside-title">What&apos;s inside</h2>
                                 <ul className="property__inside-list">
-                                    {currentCard.goods.map(good => (
+                                    {currentCard.goods.map((good) => (
                                         <li className="property__inside-item" key={good}>
                                             {good}
                                         </li>
@@ -129,7 +127,7 @@ function CardDetailPage() {
                                 {
                                     hotelComments.length !== 0 ?
                                         <ReviewsList reviews={hotelComments} />
-                                        : (`There are currently no reviews for this property, but you can ` + (authStatus !== AuthorizationStatus.Auth ? `authorize and ` : '') + `leave your own.`)
+                                        : (`There are currently no reviews for this property, but you can ${ authStatus !== AuthorizationStatus.Auth ? 'authorize and ' : '' }leave your own.`)
                                 }
 
 
@@ -146,8 +144,7 @@ function CardDetailPage() {
                         <div className="container">
                             <NearbyList nearby={nearby} />
                         </div>
-                    )
-                }
+                    )}
             </main>
         </div>
     );

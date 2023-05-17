@@ -1,15 +1,15 @@
-import { AuthData, CardProps, CommentsGet, UserData } from "../../types/types";
-import { getCities } from "../../utils/get-cities";
-import { APIRoute } from "../../const";
-import { removeToken, saveToken } from "../../services/token";
-import { toast } from "react-toastify";
-import axios, { AxiosInstance } from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { RootState } from "../reudcers/root-reducer";
-import { AppDispatch } from "..";
-import { cityReducer } from "../reudcers/city-reducer";
+import { AuthData, CardProps, CommentsGet, UserData } from '../../types/types';
+import { getCities } from '../../utils/get-cities';
+import { APIRoute } from '../../const';
+import { removeToken, saveToken } from '../../services/token';
+import { toast } from 'react-toastify';
+import axios, { AxiosInstance } from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { RootState } from '../reudcers/root-reducer';
+import { AppDispatch } from '..';
+import { cityReducer } from '../reudcers/city-reducer';
 
-export const fetchCards = createAsyncThunk<CardProps[], undefined, { extra: AxiosInstance, state: RootState, dispatch: AppDispatch }>(
+export const fetchCards = createAsyncThunk<CardProps[], undefined, { extra: AxiosInstance; state: RootState; dispatch: AppDispatch }>(
     'cards/fetchCards',
     async (_args, { dispatch, extra: api }) => {
         const { data } = await api.get<CardProps[]>(APIRoute.Hotels);
@@ -50,11 +50,11 @@ export const loginAction = createAsyncThunk<UserData, AuthData, { extra: AxiosIn
 export const logoutAction = createAsyncThunk<
     void,
     undefined,
-    { extra: AxiosInstance, dispatch: AppDispatch }
+    { extra: AxiosInstance; dispatch: AppDispatch }
 >(
     'user/logout',
     async (_args, { getState, dispatch, extra: api }) => {
-        api.delete(APIRoute.Logout);
+        await api.delete(APIRoute.Logout);
         removeToken();
 
         dispatch(fetchCards());

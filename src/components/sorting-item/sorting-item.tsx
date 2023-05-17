@@ -1,9 +1,9 @@
-import { SortNames } from "../../const";
+import { SortNames } from '../../const';
 
 type SortingItemProps = {
-    name: string,
-    isActive: boolean,
-    clickHandler: () => void,
+    name: string;
+    isActive: boolean;
+    clickHandler: () => void;
 }
 
 function SortingItem({ name, isActive, clickHandler }: SortingItemProps) {

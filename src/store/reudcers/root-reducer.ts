@@ -1,7 +1,7 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { cardReducer } from "./card-reducer";
-import { userReducer } from "./user-reducer";
-import { cityReducer } from "./city-reducer";
+import { combineReducers } from '@reduxjs/toolkit';
+import { cardReducer } from './card-reducer';
+import { userReducer } from './user-reducer';
+import { cityReducer } from './city-reducer';
 
 export const rootReducer = combineReducers({
     CARDS: cardReducer.reducer,

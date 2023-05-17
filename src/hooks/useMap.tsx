@@ -4,8 +4,8 @@ import { Map, TileLayer } from 'leaflet';
 function useMap(
     mapRef: MutableRefObject<HTMLElement | null>,
     center: {
-        lat: number,
-        lng: number
+        lat: number;
+        lng: number;
     },
     zoom: number
 ): Map | null {
@@ -41,7 +41,7 @@ function useMap(
             map.flyTo({
                 lat: center.lat,
                 lng: center.lng,
-            }, 
+            },
             zoom);
         }
     }, [map, center]);

@@ -2,7 +2,7 @@ import { rootReducer } from './reudcers/root-reducer';
 import { createAPI } from '../services/api';
 import { configureStore } from '@reduxjs/toolkit';
 
-const api = createAPI(() => store.dispatch(() => {}));
+const api = createAPI();
 
 export const store = configureStore({
     reducer: rootReducer,

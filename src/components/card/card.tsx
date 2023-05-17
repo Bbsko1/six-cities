@@ -5,7 +5,7 @@ import FavoriteButton from '../favorite-button/favorite-button';
 type Props = {
     card: CardProps;
     mouseEnter?: () => void;
-    isNearby?: boolean, 
+    isNearby?: boolean;
 }
 
 function Card({ card, mouseEnter, isNearby }: Props): JSX.Element {

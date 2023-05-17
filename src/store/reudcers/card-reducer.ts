@@ -1,14 +1,14 @@
-import { CardsState } from "../../types/types";
-import { SortNames } from "../../const";
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { CardsState } from '../../types/types';
+import { SortNames } from '../../const';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
     fetchCards,
     fetchFavorites,
     fetchToggleFavorite,
     getCommentsAction,
     getNearbyAction,
-} from "../actions/card-actions";
-import { toast } from "react-toastify";
+} from '../actions/card-actions';
+import { toast } from 'react-toastify';
 
 const initialState: CardsState = {
     cards: [],
@@ -21,7 +21,7 @@ const initialState: CardsState = {
 };
 
 export const cardReducer = createSlice({
-    name: "cards",
+    name: 'cards',
     initialState,
     reducers: {
         changeSorting(state, action: PayloadAction<SortNames>) {
@@ -82,7 +82,7 @@ export const cardReducer = createSlice({
             .addCase(fetchCards.rejected, (state) => {
                 state.cards = [];
                 state.loading = false;
-                toast.info("Something went wrong fetchCards");
+                toast.info('Something went wrong fetchCards');
             })
             .addCase(getNearbyAction.fulfilled, (state, action) => {
                 state.nearby = action.payload;
@@ -107,13 +107,13 @@ export const cardReducer = createSlice({
                 const changedCard = action.payload;
 
                 if (changedCard) {
-                    const indexCard = cards.findIndex(card => card.id === changedCard.id);
+                    const indexCard = cards.findIndex((card) => card.id === changedCard.id);
 
                     if (indexCard !== -1) {
                         cards.splice(indexCard, 1, changedCard);
                         state.cards = cards;
                     }
-                }                
-            })
+                }
+            });
     },
 });

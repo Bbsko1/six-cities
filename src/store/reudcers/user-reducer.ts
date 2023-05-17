@@ -1,12 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { AuthorizationStatus } from "../../const";
-import {  UserState } from "../../types/types";
-import { fetchCheckAuth, loginAction, logoutAction } from "../actions/card-actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { AuthorizationStatus } from '../../const';
+import { UserState } from '../../types/types';
+import { fetchCheckAuth, loginAction, logoutAction } from '../actions/card-actions';
 
 const initialState: UserState = {
     authStatus: AuthorizationStatus.Unknown,
     userData: null,
-}
+};
 
 export const userReducer = createSlice({
     name: 'user',
@@ -33,6 +33,6 @@ export const userReducer = createSlice({
             .addCase(logoutAction.fulfilled, (state) => {
                 state.authStatus = AuthorizationStatus.NoAuth;
                 state.userData = null;
-            })
+            });
     },
 });

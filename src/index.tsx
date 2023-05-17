@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import {  fetchCards, fetchCheckAuth } from './store/actions/card-actions';
+import { fetchCards, fetchCheckAuth } from './store/actions/card-actions';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,8 +14,8 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Provider store={store} >
-    <App />
-    <ToastContainer />
-  </Provider>
+    <Provider store={store} >
+        <App />
+        <ToastContainer />
+    </Provider>
 );

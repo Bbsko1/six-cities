@@ -34,20 +34,20 @@ export enum SortNames {
 }
 
 export const sortingList = [
-  {
-    name: 'popular',
-    value: SortNames.Popular,
-  },
-  {
-    name: 'Price: low to high',
-    value: SortNames.PriceAsc,
-  },
-  {
-    name: 'Price: high to low',
-    value: SortNames.PriceDesc
-  },
-  {
-    name: 'Top rated first',
-    value: SortNames.Rating,
-  }
-]
+    {
+        name: 'popular',
+        value: SortNames.Popular,
+    },
+    {
+        name: 'Price: low to high',
+        value: SortNames.PriceAsc,
+    },
+    {
+        name: 'Price: high to low',
+        value: SortNames.PriceDesc
+    },
+    {
+        name: 'Top rated first',
+        value: SortNames.Rating,
+    }
+];

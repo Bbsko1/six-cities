@@ -12,10 +12,10 @@ import { useDispatch } from 'react-redux';
 
 function MainPage() {
     const [activeCardId, setActiveCardId] = useState<number | undefined>(undefined);
-    const { cards, error, sortType } = useTypedSelector(state => state.CARDS);
-    const { activeCity, cities } = useTypedSelector(state => state.CITIES);
+    const { cards, error, sortType } = useTypedSelector((state) => state.CARDS);
+    const { activeCity, cities } = useTypedSelector((state) => state.CITIES);
 
-    const activeCityObj = cities.find(city => city.name === activeCity);
+    const activeCityObj = cities.find((city) => city.name === activeCity);
 
     if (error) {
         return <div>{error}</div>;
@@ -25,7 +25,7 @@ function MainPage() {
         return <MainEpty />;
     }
 
-    let curCards = cards.filter(card => card.city.name === activeCity);
+    let curCards = cards.filter((card) => card.city.name === activeCity);
     curCards = sortingCards(curCards, sortType);
 
     return (

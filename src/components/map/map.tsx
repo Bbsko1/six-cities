@@ -6,9 +6,9 @@ import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-    cards: CardProps[],
-    activeCardId?: number | undefined,
-    location: Location,
+    cards: CardProps[];
+    activeCardId?: number | undefined;
+    location: Location;
 }
 
 const defaultCustomIcon = new Icon({
@@ -30,7 +30,7 @@ function Map({ cards, activeCardId, location }: MapProps): JSX.Element {
 
     useEffect(() => {
         const markers: Marker[] = [];
-        
+
         if (map) {
             cards.forEach((card) => {
                 const marker: Marker = new Marker({

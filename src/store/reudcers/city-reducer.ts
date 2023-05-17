@@ -1,10 +1,10 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CityProps, CityState } from "../../types/types";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { CityProps, CityState } from '../../types/types';
 
 const initialState: CityState = {
     cities: [],
     activeCity: null,
-}
+};
 
 export const cityReducer = createSlice({
     name: 'city',
