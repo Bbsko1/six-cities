@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { APIRoute } from "../../const";
 import { BACKEND_URL, createAPI } from "../../services/api";
-import { useDispatch } from "react-redux";
-import { ThunkAppDispatch } from "../../types/card-actions";
 import { getCommentsAction } from "../../store/actions/card-actions";
+import { useAppDispatch } from "../../hooks/useTypedSelector";
 
 type ReviewFormProps = {
     hotelId: string,
@@ -19,7 +18,7 @@ function ReviewForm({ hotelId }: ReviewFormProps) {
     const [disabledForm, setDisabledForm] = useState<boolean>(true);
     const minMessageWords = 50;
     const maxMessageWords = 300;
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (rating && message && message.length > minMessageWords && message.length <= maxMessageWords) {
@@ -60,7 +59,7 @@ function ReviewForm({ hotelId }: ReviewFormProps) {
         try {
             await newApi.post(fetchLink, reviewFormData);
 
-            (dispatch as ThunkAppDispatch)(getCommentsAction(commentsLink));
+            dispatch(getCommentsAction(commentsLink));
             setMessage(null);
             setRating(null);
         } catch (error) {

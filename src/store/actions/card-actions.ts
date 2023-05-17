@@ -1,4 +1,4 @@
-import { ActionType, ThunkActionResult } from "../../types/card-actions";
+/* import { ActionType, ThunkActionResult } from "../../types/card-actions"; */
 import { AuthData, CardProps, CityProps, CommentsGet, UserData } from "../../types/types";
 import { getCities } from "../../utils/get-cities";
 import { APIRoute, AuthorizationStatus, SortNames } from "../../const";
@@ -6,7 +6,10 @@ import { removeToken, saveToken } from "../../services/token";
 import { toast } from "react-toastify";
 import axios, { AxiosInstance } from "axios";
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-
+import { RootState } from "../reudcers/root-reducer";
+import { AppDispatch } from "..";
+import { cityReducer } from "../reudcers/city-reducer";
+/* 
 export const addCities = createAction(
     ActionType.AddCities,
     (cities: CityProps[]) => ({
@@ -86,7 +89,7 @@ export const getFavorites = createAction(
     (favorites: CardProps[] | []) => ({
         payload: favorites,
     }),
-);
+); */
 /* 
 export const fetchCards = (): ThunkActionResult => {
     return async (dispatch, _getState, api) => {
@@ -110,10 +113,17 @@ export const fetchCards = (): ThunkActionResult => {
     }
 } */
 
-export const fetchCards = createAsyncThunk<CardProps[], undefined, {extra: AxiosInstance}>(
+export const fetchCards = createAsyncThunk<CardProps[], undefined, {extra: AxiosInstance, state: RootState, dispatch: AppDispatch}>(
     'cards/fetchCards',
-    async (_args, {extra: api}) => {
+    async (_args, {dispatch, extra: api}) => {
         const { data } = await api.get<CardProps[]>(APIRoute.Hotels);
+        const {addCities, changeActiveCity} = cityReducer.actions;
+        const cities = getCities(data);
+
+        if (cities) {
+            dispatch(addCities(cities));
+            dispatch(changeActiveCity(cities[0].name));
+        }
 
         return data;
     },

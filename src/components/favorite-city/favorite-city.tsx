@@ -4,7 +4,7 @@ import FavoriteCard from "../favorite-card/favorite-card";
 import { AppRoutes } from "../../const";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
-import { changeActiveCity } from "../../store/actions/card-actions";
+import { cityReducer } from "../../store/reudcers/city-reducer";
 
 type FavoriteCityProps = {
     favoriteCity: FavoriteProps,
@@ -13,6 +13,7 @@ type FavoriteCityProps = {
 function FavoriteCity({favoriteCity}: FavoriteCityProps) {
     const {activeCity} = useTypedSelector(state => state.CITIES);
     const dispatch = useDispatch();
+    const changeActiveCity = cityReducer.actions.changeActiveCity;
 
     const handleChangeCity = (): void => {
         if (favoriteCity.cityName !== activeCity) {

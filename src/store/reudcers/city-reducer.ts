@@ -1,7 +1,6 @@
-import { createReducer, createSlice } from "@reduxjs/toolkit";
-import { ActionType, LocationActions } from "../../types/card-actions";
-import { CityState } from "../../types/types";
-import { addCities, changeActiveCity } from "../actions/card-actions";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { CityProps, CityState } from "../../types/types";
+import { stat } from "fs";
 
 const initialState: CityState = {
     cities: [],
@@ -18,13 +17,18 @@ const initialState: CityState = {
         })
 });
  */
-const cityReducer = createSlice({
+export const cityReducer = createSlice({
     name: 'city',
     initialState,
-    reducers: {},
+    reducers: {
+        changeActiveCity(state, action: PayloadAction<string>) {
+            state.activeCity = action.payload;
+        },
+        addCities(state, action: PayloadAction<CityProps[]>) {
+            state.cities = action.payload;
+        }
+    },
     extraReducers: {
 
     }
 });
-
-export default cityReducer.reducer;

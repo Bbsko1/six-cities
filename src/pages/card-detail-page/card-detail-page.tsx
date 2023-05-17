@@ -1,14 +1,12 @@
-import { useParams, Navigate, Link } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { CardProps } from '../../types/types';
 import { APIRoute, AppRoutes, AuthorizationStatus } from '../../const';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useAppDispatch, useTypedSelector } from '../../hooks/useTypedSelector';
 import Header from '../../components/header/header';
 import ReviewForm from '../../components/review-form/review-form';
 import Map from '../../components/map/map';
 import { useEffect } from 'react';
 import { getNearbyAction, getCommentsAction } from '../../store/actions/card-actions';
-import { useDispatch } from 'react-redux';
-import { ThunkAppDispatch } from '../../types/card-actions';
 import NearbyList from '../../components/nearby-list/nearby-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
@@ -25,15 +23,15 @@ function CardDetailPage() {
         return <Navigate to={AppRoutes.NotFound} />;
     }
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { nearby, hotelComments } = useTypedSelector(state => state.CARDS)
 
     useEffect(() => {
         const nearbyLink = `${APIRoute.Hotels}/${id}/nearby`;
         const commentsLink = `/comments/${id}`;
 
-        (dispatch as ThunkAppDispatch)(getNearbyAction(nearbyLink));
-        (dispatch as ThunkAppDispatch)(getCommentsAction(commentsLink));
+        dispatch(getNearbyAction(nearbyLink));
+        dispatch(getCommentsAction(commentsLink));
     }, [id]);
 
     return (

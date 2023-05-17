@@ -1,8 +1,13 @@
-import { ActionType, LocationActions } from "../../types/card-actions";
 import { CardProps, CardsState, CommentsGet } from "../../types/types";
 import { SortNames } from "../../const";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { fetchCards, fetchFavorites, fetchToggleFavorite, getCommentsAction, getNearbyAction } from "../actions/card-actions";
+import {
+    fetchCards,
+    fetchFavorites,
+    fetchToggleFavorite,
+    getCommentsAction,
+    getNearbyAction,
+} from "../actions/card-actions";
 import { toast } from "react-toastify";
 
 const initialState: CardsState = {
@@ -13,7 +18,7 @@ const initialState: CardsState = {
     nearby: [],
     hotelComments: [],
     favorites: [],
-}
+};
 /* 
 export const cardReducer = (state: CardsState = initialState, action: LocationActions): CardsState => {
     switch (action.type) {
@@ -39,14 +44,14 @@ export const cardReducer = (state: CardsState = initialState, action: LocationAc
 } */
 
 export const cardReducer = createSlice({
-    name: 'cards',
+    name: "cards",
     initialState,
     reducers: {
         changeSorting(state, action: PayloadAction<SortNames>) {
             state.sortType = action.payload;
-        }
+        },
     },
-    extraReducers: {
+    /* extraReducers: {
         [fetchCards.pending.type]: (state) => {
             state.loading = true;
         },
@@ -87,7 +92,51 @@ export const cardReducer = createSlice({
                 state.cards = cards;
             }
         },
-    }
-});
+    } */
+    extraReducers(builder) {
+        builder
+            .addCase(fetchCards.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchCards.fulfilled, (state, action) => {
+                state.cards = action.payload;
+                state.loading = false;
+            })
+            .addCase(fetchCards.rejected, (state) => {
+                state.cards = [];
+                state.loading = false;
+                toast.info("Something went wrong fetchCards");
+            })
+            .addCase(getNearbyAction.fulfilled, (state, action) => {
+                state.nearby = action.payload;
+            })
+            .addCase(getNearbyAction.rejected, (state) => {
+                state.nearby = [];
+            })
+            .addCase(getCommentsAction.fulfilled, (state, action) => {
+                state.hotelComments = action.payload;
+            })
+            .addCase(getCommentsAction.rejected, (state) => {
+                state.hotelComments = [];
+            })
+            .addCase(fetchFavorites.fulfilled, (state, action) => {
+                state.favorites = action.payload;
+            })
+            .addCase(fetchFavorites.rejected, (state) => {
+                state.favorites = [];
+            })
+            .addCase(fetchToggleFavorite.fulfilled, (state, action) => {
+                const cards = state.cards;
+                const changedCard = action.payload;
 
-export default cardReducer.reducer;
+                if (changedCard) {
+                    const indexCard = cards.findIndex(card => card.id === changedCard.id);
+
+                    if (indexCard !== -1) {
+                        cards.splice(indexCard, 1, changedCard);
+                        state.cards = cards;
+                    }
+                }                
+            })
+    },
+});

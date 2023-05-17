@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
 import { CityProps } from "../../types/types";
-import { changeActiveCity } from "../../store/actions/card-actions";
+import { useAppDispatch } from "../../hooks/useTypedSelector";
+import { cityReducer } from "../../store/reudcers/city-reducer";
 
 type CityItemProps = {
     city: CityProps,
@@ -8,7 +8,8 @@ type CityItemProps = {
 }
 
 function CityItem({city, activeCity}: CityItemProps) {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+    const changeActiveCity = cityReducer.actions.changeActiveCity;
 
     const changeCity = (newCity: string) => {
         dispatch(changeActiveCity(newCity));

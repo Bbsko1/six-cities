@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { SortNames, sortingList } from "../../const";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { useDispatch } from "react-redux";
-import { changeSorting } from "../../store/actions/card-actions";
+import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 import SortingItem from "../sorting-item/sorting-item";
+import { cardReducer } from "../../store/reudcers/card-reducer";
 
 function SortingList() {
     const [opened, setOpened] = useState(false);
     const curSort: SortNames = useTypedSelector(state => state.CARDS.sortType);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const sortName = sortingList.find(item => item.value === curSort)?.name;
-
+    const changeSorting = cardReducer.actions.changeSorting;
+    
     const bindSortItem = (sortValue: SortNames) => {
         dispatch(changeSorting(sortValue));
         toggleOpen();

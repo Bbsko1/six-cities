@@ -3,12 +3,12 @@ import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import {  fetchCards, fetchCheckAuth } from './store/actions/card-actions';
-import { ThunkAppDispatch } from './types/card-actions';
+/* import { ThunkAppDispatch } from './types/card-actions'; */
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(fetchCheckAuth());
-(store.dispatch as ThunkAppDispatch)(fetchCards());
+store.dispatch(fetchCards());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

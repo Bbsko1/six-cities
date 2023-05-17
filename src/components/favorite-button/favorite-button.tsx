@@ -1,9 +1,7 @@
-import { useDispatch } from "react-redux";
 import { APIRoute, AppRoutes, AuthorizationStatus } from "../../const";
-import { ThunkAppDispatch } from "../../types/card-actions";
 import { fetchToggleFavorite, fetchFavorites, getNearbyAction } from "../../store/actions/card-actions";
 import { useNavigate, useParams, redirect } from "react-router-dom";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useAppDispatch, useTypedSelector } from "../../hooks/useTypedSelector";
 
 type FavoriteButtonProps = {
     isActive: boolean,
@@ -14,7 +12,7 @@ type FavoriteButtonProps = {
 }
 
 function FavoriteButton({ isActive, cardId, isFavoritePage, isDetail, isNearby }: FavoriteButtonProps) {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const { authStatus } = useTypedSelector(state => state.USER);
     let favLink = `${APIRoute.Favorite}/${cardId}/`;
     const svtWidth = isDetail ? 31 : 18;
@@ -29,7 +27,7 @@ function FavoriteButton({ isActive, cardId, isFavoritePage, isDetail, isNearby }
             favLink += 1;
         }
 
-        await (dispatch as ThunkAppDispatch)(fetchToggleFavorite(favLink));
+        await dispatch(fetchToggleFavorite(favLink));
 
         if (authStatus !== AuthorizationStatus.Auth) {
             navigate(AppRoutes.Login)
@@ -37,12 +35,12 @@ function FavoriteButton({ isActive, cardId, isFavoritePage, isDetail, isNearby }
         }
 
         if (isFavoritePage) {
-            (dispatch as ThunkAppDispatch)(fetchFavorites());
+            dispatch(fetchFavorites());
         }
 
         if (isNearby && id) {
             const nearbyLink = `${APIRoute.Hotels}/${id}/nearby`;
-            (dispatch as ThunkAppDispatch)(getNearbyAction(nearbyLink));
+            dispatch(getNearbyAction(nearbyLink));
         }
     }
 

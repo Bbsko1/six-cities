@@ -78,7 +78,7 @@ export type GetFavoritesAction = {
     payload: CardProps[] | [],
 }
 
-export type LocationActions = AddCitiesAction | ChangeCityAction | ChangeCardListAction | FetchCardsAction | FetchCardsSuccessAction | FetchCardsErrorAction | ChangeSortingAction | UserAuthAction | ChangeUserDataAction | ChangeNearbyCardsAction | GetHotelCommentsAction | GetFavoritesAction;
+/* export type LocationActions = AddCitiesAction | ChangeCityAction | ChangeCardListAction | FetchCardsAction | FetchCardsSuccessAction | FetchCardsErrorAction | ChangeSortingAction | UserAuthAction | ChangeUserDataAction | ChangeNearbyCardsAction | GetHotelCommentsAction | GetFavoritesAction;
 
 export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, RootState, AxiosInstance, LocationActions>;
-export type ThunkAppDispatch = ThunkDispatch<RootState, AxiosInstance, LocationActions>;
+export type ThunkAppDispatch = ThunkDispatch<RootState, AxiosInstance, LocationActions>; */
