@@ -7,6 +7,7 @@ import {
     fetchToggleFavorite,
     getCommentsAction,
     getNearbyAction,
+    postCommentsAction,
 } from '../actions/card-actions';
 import { toast } from 'react-toastify';
 
@@ -114,6 +115,9 @@ export const cardReducer = createSlice({
                         state.cards = cards;
                     }
                 }
+            })
+            .addCase(postCommentsAction.fulfilled, (state, action) => {
+                state.hotelComments = action.payload;
             });
     },
 });

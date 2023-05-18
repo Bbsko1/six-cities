@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { APIRoute } from '../../const';
-import { BACKEND_URL, createAPI } from '../../services/api';
-import { getCommentsAction } from '../../store/actions/card-actions';
+import { BACKEND_URL } from '../../services/api';
+import { postCommentsAction } from '../../store/actions/card-actions';
 import { useAppDispatch } from '../../hooks/useTypedSelector';
+import { CommentFormData } from '../../types/types';
+import { toast } from 'react-toastify';
 
 type ReviewFormProps = {
     hotelId: string;
@@ -44,27 +46,25 @@ function ReviewForm({ hotelId }: ReviewFormProps) {
         }
     };
 
-    const onSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
-        const fetchLink = `${BACKEND_URL}${APIRoute.Comments}/${hotelId}`;
-        const commentsLink = `/comments/${id}`;
 
-        const reviewFormData = {
+        if (!id || !rating || !message) {
+            toast.info('Fill out the form correctly');
+            return;
+        }
+
+        const fetchLink = `${BACKEND_URL}${APIRoute.Comments}/${hotelId}`;
+
+        const reviewFormData: CommentFormData = {
             rating: rating,
             comment: message,
         };
 
-        const newApi = createAPI(() => {});
+        dispatch(postCommentsAction([fetchLink, reviewFormData]));
 
-        try {
-            await newApi.post(fetchLink, reviewFormData);
-
-            dispatch(getCommentsAction(commentsLink));
-            setMessage(null);
-            setRating(null);
-        } catch (error) {
-
-        }
+        setMessage(null);
+        setRating(null);
     };
 
     return (

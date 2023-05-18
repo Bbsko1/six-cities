@@ -1,4 +1,4 @@
-import { AuthData, CardProps, CommentsGet, UserData } from '../../types/types';
+import { AuthData, CardProps, CommentFormData, CommentsGet, UserData } from '../../types/types';
 import { getCities } from '../../utils/get-cities';
 import { APIRoute } from '../../const';
 import { removeToken, saveToken } from '../../services/token';
@@ -71,11 +71,20 @@ export const getNearbyAction = createAsyncThunk<CardProps[], string, { extra: Ax
 );
 
 export const getCommentsAction = createAsyncThunk<CommentsGet[] | [], string, { extra: AxiosInstance }>(
-    'cards/comments',
+    'cards/getComments',
     async (link, { extra: api }) => {
         const commentsData = (await api.get<CommentsGet[]>(link)).data;
 
         return commentsData;
+    }
+);
+
+export const postCommentsAction = createAsyncThunk<CommentsGet[], [string, CommentFormData], { dispatch: AppDispatch; extra: AxiosInstance }>(
+    'cards/postComments',
+    async ([link, formData], {extra: api}) => {
+        const {data} = await api.post<CommentsGet[]>(link, formData);
+
+        return data;
     }
 );
 

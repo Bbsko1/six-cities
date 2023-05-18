@@ -83,3 +83,8 @@ export type CommentsGet = {
     rating: number;
     user: UserData;
 }
+
+export type CommentFormData = {
+    rating: number;
+    comment: string;
+}
