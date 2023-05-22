@@ -34,7 +34,7 @@ function useMap(
 
             setMap(instance);
         }
-    }, [mapRef, map, /* center */]);
+    }, [mapRef, map]);
 
     useEffect(() => {
         if (map !== null) {

@@ -8,7 +8,6 @@ import { sortingCards } from '../../utils/sorting-cards';
 import SortingList from '../../components/sorting-list/sorting-list';
 import Header from '../../components/header/header';
 import MainEpty from '../../components/main-epty/main-epty';
-import { useDispatch } from 'react-redux';
 
 function MainPage() {
     const [activeCardId, setActiveCardId] = useState<number | undefined>(undefined);

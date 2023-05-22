@@ -18,10 +18,10 @@ function FavoritesPage() {
     const hasFavorites = !!favorites.length;
 
     return (
-        <div className={`page ${!hasFavorites && 'page--favorites-empty'}`}>
+        <div className={`page ${!hasFavorites ? 'page--favorites-empty' : ''}`}>
             <Header />
 
-            <main className={`page__main page__main--favorites ${!hasFavorites && 'page__main--favorites-empty'}`}>
+            <main className={`page__main page__main--favorites ${!hasFavorites ? 'page__main--favorites-empty' : ''}`}>
                 {hasFavorites ? <Favorites favoriteCards={favorites}/> : <FavoritesEmpty />}
             </main>
             <Footer />

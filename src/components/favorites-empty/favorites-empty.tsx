@@ -1,6 +1,3 @@
-import Footer from '../footer/footer';
-import Header from '../header/header';
-
 function FavoritesEmpty() {
     return (
         <div className="page__favorites-container container">

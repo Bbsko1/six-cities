@@ -7,7 +7,7 @@ type CityItemProps = {
     activeCity: string;
 }
 
-function CityItem({city, activeCity}: CityItemProps) {
+function CityItem({ city, activeCity }: CityItemProps) {
     const dispatch = useAppDispatch();
     const changeActiveCity = cityReducer.actions.changeActiveCity;
 
@@ -17,7 +17,11 @@ function CityItem({city, activeCity}: CityItemProps) {
 
     return (
         <li className="locations__item">
-            <a className={`locations__item-link tabs__item ${city.name === activeCity ? 'tabs__item--active' : ''}`} href="#" onClick={() => {changeCity(city.name);}}>
+            <a
+                className={`locations__item-link tabs__item ${city.name === activeCity ? 'tabs__item--active' : ''}`}
+                href="#"
+                onClick={() => { changeCity(city.name); }}
+            >
                 <span>{city.name}</span>
             </a>
         </li>
