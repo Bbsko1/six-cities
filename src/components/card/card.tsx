@@ -1,18 +1,30 @@
 import { Link } from 'react-router-dom';
 import { CardProps } from '../../types/types';
 import FavoriteButton from '../favorite-button/favorite-button';
+import { useAppDispatch } from '../../hooks/useTypedSelector';
+import { cardReducer } from '../../store/reudcers/card-reducer';
+import { memo } from 'react';
 
 type Props = {
     card: CardProps;
-    mouseEnter?: () => void;
     isNearby?: boolean;
 }
 
-function Card({ card, mouseEnter, isNearby }: Props): JSX.Element {
+function Card({ card, isNearby }: Props): JSX.Element {
     const ratingScore = `${card.rating * 20}%`;
+    const dispatch = useAppDispatch();
+    const changeActiveCard = cardReducer.actions.changeActiveCard;
+
+    const mouseEnter = () => {
+        dispatch(changeActiveCard(card.id));
+    };
+
+    const mouseLeave = () => {
+        dispatch(changeActiveCard(null));
+    };
 
     return (
-        <article className="cities__place-card place-card" onMouseEnter={mouseEnter}>
+        <article className="cities__place-card place-card" onMouseEnter={mouseEnter} onMouseLeave={mouseLeave}>
             {card.isPremium &&
                 <div className="place-card__mark">
                     <span>Premium</span>
@@ -46,4 +58,4 @@ function Card({ card, mouseEnter, isNearby }: Props): JSX.Element {
     );
 }
 
-export default Card;
+export default memo(Card);

@@ -19,6 +19,7 @@ const initialState: CardsState = {
     nearby: [],
     hotelComments: [],
     favorites: [],
+    activeCard: null,
 };
 
 export const cardReducer = createSlice({
@@ -28,49 +29,10 @@ export const cardReducer = createSlice({
         changeSorting(state, action: PayloadAction<SortNames>) {
             state.sortType = action.payload;
         },
+        changeActiveCard(state, action: PayloadAction<number | null>) {
+            state.activeCard = action.payload;
+        },
     },
-    /* extraReducers: {
-        [fetchCards.pending.type]: (state) => {
-            state.loading = true;
-        },
-        [fetchCards.fulfilled.type]: (state, action: PayloadAction<CardProps[]>) => {
-            state.cards = action.payload;
-            state.loading = false;
-        },
-        [fetchCards.rejected.type]: (state) => {
-            state.cards = [];
-            state.loading = false;
-            toast.info('Something went wrong fetchCards');
-        },
-        [getNearbyAction.fulfilled.type]: (state, action: PayloadAction<CardProps[]>) => {
-            state.nearby = action.payload;
-        },
-        [getNearbyAction.rejected.type]: (state) => {
-            state.nearby = [];
-        },
-        [getCommentsAction.fulfilled.type]: (state, action: PayloadAction<CommentsGet[]>) => {
-            state.hotelComments = action.payload;
-        },
-        [getCommentsAction.rejected.type]: (state) => {
-            state.hotelComments = [];
-        },
-        [fetchFavorites.fulfilled.type]: (state, action: PayloadAction<CardProps[] | []>) => {
-            state.favorites = action.payload;
-        },
-        [fetchFavorites.rejected.type]: (state) => {
-            state.favorites = [];
-        },
-        [fetchToggleFavorite.fulfilled.type]: (state, action: PayloadAction<CardProps>) => {
-            const cards = state.cards;
-            const changedCard = action.payload;
-            const indexCard = cards.findIndex(card => card.id === changedCard.id);
-
-            if (indexCard !== -1) {
-                cards.splice(indexCard, 1, changedCard);
-                state.cards = cards;
-            }
-        },
-    } */
     extraReducers(builder) {
         builder
             .addCase(fetchCards.pending, (state) => {

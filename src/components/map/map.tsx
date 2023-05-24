@@ -4,10 +4,10 @@ import { CardProps, Location } from '../../types/types';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 type MapProps = {
     cards: CardProps[];
-    activeCardId?: number | undefined;
     location: Location;
 }
 
@@ -24,9 +24,10 @@ const currentCustomIcon = new Icon({
 });
 
 
-function Map({ cards, activeCardId, location }: MapProps): JSX.Element {
+function Map({ cards, location }: MapProps): JSX.Element {
     const mapRef = useRef(null);
     const map = useMap(mapRef, { lat: location.latitude, lng: location.longitude }, location.zoom);
+    const {activeCard} = useTypedSelector((state) => state.CARDS);
 
     useEffect(() => {
         const markers: Marker[] = [];
@@ -37,7 +38,7 @@ function Map({ cards, activeCardId, location }: MapProps): JSX.Element {
                     lat: card.location.latitude,
                     lng: card.location.longitude,
                 });
-                if (card.id === activeCardId) {
+                if (card.id === activeCard) {
                     marker.setIcon(currentCustomIcon);
                 } else {
                     marker.setIcon(defaultCustomIcon);
@@ -52,7 +53,7 @@ function Map({ cards, activeCardId, location }: MapProps): JSX.Element {
                 markers.forEach((marker) => marker.removeFrom(map));
             };
         }
-    }, [cards, activeCardId, location, map]);
+    }, [cards, activeCard, location, map]);
 
     return <div style={{ height: '100%' }} ref={mapRef}></div>;
 }

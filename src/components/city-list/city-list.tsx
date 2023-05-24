@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { CityProps } from '../../types/types';
 import CityItem from '../city-item/city-item';
 
@@ -18,4 +19,4 @@ function CityList({cities, activeCity} : CityListProps) {
     );
 }
 
-export default CityList;
+export default memo(CityList);

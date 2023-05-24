@@ -50,6 +50,7 @@ export type CardsState = {
     nearby: CardProps[] | [];
     hotelComments: CommentsGet[] | [];
     favorites: CardProps[] | [];
+    activeCard: null | number;
 }
 
 export type UserState = {

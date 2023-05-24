@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import CardList from '../../components/card-list/card-list';
 import Map from '../../components/map/map';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -10,7 +9,6 @@ import Header from '../../components/header/header';
 import MainEpty from '../../components/main-epty/main-epty';
 
 function MainPage() {
-    const [activeCardId, setActiveCardId] = useState<number | undefined>(undefined);
     const { cards, error, sortType } = useTypedSelector((state) => state.CARDS);
     const { activeCity, cities } = useTypedSelector((state) => state.CITIES);
 
@@ -48,14 +46,12 @@ function MainPage() {
                             <SortingList />
                             <CardList
                                 cards={curCards}
-                                onSetActiveCard={setActiveCardId}
                             />
                         </section>
                         <div className="cities__right-section">
                             <section className="cities__map map">
                                 <Map
                                     cards={curCards}
-                                    activeCardId={activeCardId}
                                     location={activeCityObj?.location ? activeCityObj.location : cities[0].location}
                                 />
                             </section>
