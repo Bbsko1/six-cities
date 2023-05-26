@@ -8,18 +8,23 @@ import { memo } from 'react';
 type Props = {
     card: CardProps;
     isNearby?: boolean;
+    isMainPage?: boolean;
 }
 
-function Card({ card, isNearby }: Props): JSX.Element {
+function Card({ card, isNearby, isMainPage }: Props): JSX.Element {
     const ratingScore = `${card.rating * 20}%`;
     const dispatch = useAppDispatch();
     const changeActiveCard = cardReducer.actions.changeActiveCard;
 
     const mouseEnter = () => {
+        if (!isMainPage) return;
+
         dispatch(changeActiveCard(card.id));
     };
 
     const mouseLeave = () => {
+        if (!isMainPage) return;
+
         dispatch(changeActiveCard(null));
     };
 

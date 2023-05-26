@@ -46,6 +46,7 @@ function MainPage() {
                             <SortingList />
                             <CardList
                                 cards={curCards}
+                                isMainPage={true}
                             />
                         </section>
                         <div className="cities__right-section">

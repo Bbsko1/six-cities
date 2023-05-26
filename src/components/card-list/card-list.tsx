@@ -3,12 +3,13 @@ import { CardProps } from '../../types/types';
 
 type CardListProp = {
     cards: CardProps[];
+    isMainPage?: boolean;
 }
 
-function CardList({cards}: CardListProp) {
+function CardList({cards, isMainPage}: CardListProp) {
     return (
         <div className="cities__places-list places__list tabs__content">
-            {cards.map((card) => <Card key={card.id} card={card} />)}
+            {cards.map((card) => <Card key={card.id} card={card} isMainPage={isMainPage} />)}
         </div>
     );
 }
